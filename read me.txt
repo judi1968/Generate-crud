@@ -1,0 +1,10 @@
+execution : 
+- miditra ao amin'ny kombarika
+- manokatra terminal
+- command : mvn exec:java
+
+NB : tsy mahazo asina espace ny anaran'ny dossier asina an io kombarika io fa tsy hitany ilay json misy ny configuration an ilay base anaovana generalisation
+
+=> afaka mampiasa an ilay run.bat (windows) dia mandeha ilay izy
+
+dossier misy an ilay fichier generer : com\district\test
