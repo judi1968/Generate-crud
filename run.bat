@@ -24,14 +24,18 @@ echo -
 echo -
 echo -
 echo -
-
+@echo off
 echo copie termine
 cd /d %dossierExcecution%
 echo compilation du programme de GenerateCrud
 mvn compile
 echo -
 echo -
+@echo off
+
 echo excec du programme de GenerateCrud
 mvn exec:java
+@echo off
+
 echo Retour au dossier source
-cd /d "%dossierSource%"
+cd /d "D:\Informatique et Technologie\Coding\Generate-crud"

@@ -96,6 +96,19 @@ public class CodeGenerator {
         FileUtility.generateFile(path, fileName, view);
     }
 
+    public void generateVueJs(
+        String path, 
+        String table,
+        String directory, 
+        String url
+    ) throws Exception{
+        String view = buildView(table, url);
+        FileUtility.createDirectory(directory,path);
+        path = path + File.separator + directory;
+        String fileName = GeneratorService.getFileName(table, "vue");
+        FileUtility.generateFile(path, fileName, view);
+    }
+
     /**
      * eg : generate -p path -t table1, table2, table3 -package name -l java:spring-boot
      * @author rakharrs
@@ -216,6 +229,7 @@ public class CodeGenerator {
             generateRepository(path, table, packageName + "." + repository, packageName + "." + entity, framework);
             generateController(path, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateView(path, table, view, url); 
+            generateVueJs(path, table, view, url); 
         }
     }
 
