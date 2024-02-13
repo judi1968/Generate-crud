@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author Mamisoa
+ * @author Judi
  */
 @Getter @Setter
 public class ViewDetails extends Configuration{
