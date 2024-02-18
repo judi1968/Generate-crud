@@ -15,7 +15,7 @@ if exist "%dossierExcecution%" (
     echo Le dossier "GenerateCrud" n'existe pas dans %dossierDestination%.
 )
 echo copie du code dans le dossier %dossierExcecution%
-xcopy /s /y "%dossierSource%\*" "%dossierExcecution%"
+xcopy /s /y "%dossierSource%" "%dossierExcecution%"
 
 echo -
 echo -
