@@ -1,5 +1,5 @@
 @echo off
-set "dossierSource=%~dp0\kombarika"
+set "dossierSource=%~dp0"
 set "dossierDestination=C:\"
 set "dossierExcecution=C:\GenerateCrud"
 set "dossierActuel=%CD%"
@@ -15,7 +15,7 @@ if exist "%dossierExcecution%" (
     echo Le dossier "GenerateCrud" n'existe pas dans %dossierDestination%.
 )
 echo copie du code dans le dossier %dossierExcecution%
-xcopy /s /y "%dossierSource%" "%dossierExcecution%"
+xcopy /s /y "%dossierSource%\kombarika" "%dossierExcecution%"
 
 echo -
 echo -
