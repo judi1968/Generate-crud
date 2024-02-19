@@ -1,7 +1,7 @@
 @echo off
-set "dossierSource=%~dp0"
+set "dossierSource=%~dp0\kombarika"
 set "dossierDestination=C:\"
-set "dossierExcecution=C:\GenerateCrud"
+set "dossierExcecution=C:\GenerateCrud\kommbarika"
 set "dossierActuel=%CD%"
 
 echo ========================
@@ -15,7 +15,7 @@ if exist "%dossierExcecution%" (
     echo Le dossier "GenerateCrud" n'existe pas dans %dossierDestination%.
 )
 echo copie du code dans le dossier %dossierExcecution%
-xcopy /s /y "%dossierSource%\kombarika" "%dossierExcecution%"
+xcopy /s /e /y /i "%dossierSource%" "%dossierExcecution%"
 
 echo -
 echo -
@@ -28,7 +28,7 @@ echo -
 echo copie termine
 cd /d %dossierExcecution%
 echo compilation du programme de GenerateCrud
-mvn compile
+start mvn compile
 echo -
 echo -
 @echo off
