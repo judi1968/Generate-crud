@@ -7,6 +7,7 @@ package ambovombe.kombarika.generator;
 import ambovombe.kombarika.configuration.main.LanguageDetails;
 import ambovombe.kombarika.configuration.main.TypeProperties;
 import ambovombe.kombarika.configuration.main.ViewDetails;
+import ambovombe.kombarika.configuration.main.ViewVueJsDetails;
 import ambovombe.kombarika.configuration.mapping.*;
 import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.parser.FileUtility;
@@ -16,6 +17,7 @@ import ambovombe.kombarika.generator.service.controller.Controller;
 import ambovombe.kombarika.generator.service.entity.Entity;
 import ambovombe.kombarika.generator.service.repository.Repository;
 import ambovombe.kombarika.generator.service.view.View;
+import ambovombe.kombarika.generator.service.view.ViewVueJs;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +34,8 @@ public class CodeGenerator {
     LanguageDetails languageDetails;
     TypeProperties typeProperties;
     ViewDetails viewDetails;
+    ViewVueJsDetails viewVueJsDetails;
+
 
     public CodeGenerator() throws Exception {
         this.dbConnection = new DbConnection();
@@ -102,7 +106,7 @@ public class CodeGenerator {
         String directory, 
         String url
     ) throws Exception{
-        String view = buildView(table, url);
+        String view = buildViewVueJs(table, url);
         FileUtility.createDirectory(directory,path);
         path = path + File.separator + directory;
         String fileName = GeneratorService.getFileName(table, "vue");
@@ -207,6 +211,11 @@ public class CodeGenerator {
         View view = new View();
         view.setViewDetails(this.getViewDetails());
         return view.generateView(table, url, dbConnection);
+    }
+    public String buildViewVueJs(String table, String url) throws Exception{
+        ViewVueJs view = new ViewVueJs();
+        view.setViewVueJsDetails(this.getViewVueJsDetails());
+        return view.generateViewVueJs(table, url, dbConnection);
     }
     // public static String getTemplate() throws Exception{
     //     String path = Misc.getSourceTemplateLocation() + File.separator + "Template.code";

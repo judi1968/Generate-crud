@@ -24,6 +24,7 @@ D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambo
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\mapping\FrameworkProperties.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\database\DbConnection.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\generator\CLIReader.java
+D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\main\ViewVueJsDetails.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\mapping\Imports.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\mapping\Constraint.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\main\FrameworkDetails.java
@@ -31,3 +32,4 @@ D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambo
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\App.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\generator\service\entity\Entity.java
 D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\configuration\main\LanguageDetails.java
+D:\Informatique et Technologie\Coding\Generate-crud\kombarika\src\main\java\ambovombe\kombarika\generator\service\view\ViewVueJs.java
