@@ -46,6 +46,8 @@ public class CodeGenerator {
         this.typeProperties.init();
         this.viewDetails = new ViewDetails();
         this.viewDetails.init();
+        this.viewVueJsDetails = new ViewVueJsDetails();
+        this.viewVueJsDetails.init();
     }
 
     public  void generateEntity(
