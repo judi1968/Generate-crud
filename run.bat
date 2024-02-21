@@ -1,7 +1,7 @@
 @echo off
 set "dossierSource=%~dp0\kombarika"
 set "dossierDestination=C:\"
-set "dossierExcecution=C:\GenerateCrud\kommbarika"
+set "dossierExcecution=C:\GenerateCrud\kombarika"
 set "dossierActuel=%CD%"
 
 echo ========================
