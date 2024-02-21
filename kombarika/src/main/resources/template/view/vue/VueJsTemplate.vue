@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <table class="table align-middle mb-0 bg-white">
+#titleVueJs#    
+    <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">
     <tr>
       <th>Name</th>

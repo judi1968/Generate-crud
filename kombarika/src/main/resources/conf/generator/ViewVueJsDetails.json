@@ -1,5 +1,5 @@
 {
-    "titleVueJs":"<div  class=\"mb-3\"> \n <h1>#name#</h1></div>",
+    "titleVueJs":"<div  class=\"mb-3\"> \n <h1>CRUD #titleVueJs#</h1>\n</div>",
     "inputInsert":"<div  class=\"mb-3\"> \n \t<label class=\"form-label\">#label#</label> \n \t<input class=\"form-control\" type=\"#type#\" name=\"#name#\" >\n</div>",
     "inputUpdate":"<div class=\"mb-3\"> \n \t<label class=\"form-label\">#label#</label> \n \t<input class=\"form-control\" type=\"#type#\" name=\"#name#\" value=\"`+data[i][\"#name#\"]+`\">\n</div>",
     "select":"<div  class=\"mb-3\"> \n \t<label class=\"form-label\">#label#</label> \n \t<select class=\"form-control\" name=\"#name#\" id=\"select-#name#\">\n#option#\n\t</select>\n</div>",

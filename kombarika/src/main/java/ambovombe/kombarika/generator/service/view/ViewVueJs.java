@@ -101,6 +101,13 @@ public class ViewVueJs {
         return res;
     }
 
+    public String getTitleVueJs(String tableName){
+        String res ="";
+        String template = this.getViewVueJsDetails().getTitleVueJs();
+        res = template.replace("#titleVueJs#", tableName);
+        return res;
+    }
+
     public HashMap<String, String> getIdAndAttribute(DbConnection dbConnection, HashMap<String, String> foreignKeys) throws Exception{
         String attribute = "";
         String id = "";
@@ -138,6 +145,7 @@ public class ViewVueJs {
         .replace("#inputUpdate#", getInputUpdate(columns, foreignKeys, primaryKeys, url, id))
         .replace("#optionUpdate#", getOptionUpdate(foreignKeys, url, id, attribute))
         .replace("#entity#", ObjectUtility.formatToSpacedString(table))
+        .replace("#titleVueJs#", getTitleVueJs(ObjectUtility.formatToSpacedString(table)))
         .replace("#value#", ObjectUtility.formatToCamelCase(attribute))
         .replace("#url#", url)
         .replace("#path#", path)
