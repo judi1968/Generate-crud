@@ -15,9 +15,13 @@ public class FrameworkProperties {
     String template;
     String repository;
     Imports imports;
+    ImportsControllerRest importsControllerRest;
     AnnotationProperty annotationProperty;
+    AnnotationPropertyControllerRest annotationPropertyControllerRest;
     CrudMethod crudMethod;
     ControllerProperty controllerProperty;
+    ControllerRestProperty controllerRestProperty;
+
     RepositoryProperty repositoryProperty;
     boolean init = false;
 

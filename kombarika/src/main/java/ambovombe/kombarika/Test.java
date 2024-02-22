@@ -10,6 +10,7 @@ import ambovombe.kombarika.generator.service.DbService;
 
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Vector;
 import java.util.HashMap;
 /**
  *

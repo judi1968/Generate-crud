@@ -14,6 +14,7 @@ import ambovombe.kombarika.generator.parser.FileUtility;
 import ambovombe.kombarika.generator.service.DbService;
 import ambovombe.kombarika.generator.service.GeneratorService;
 import ambovombe.kombarika.generator.service.controller.Controller;
+import ambovombe.kombarika.generator.service.controller.ControllerRest;
 import ambovombe.kombarika.generator.service.entity.Entity;
 import ambovombe.kombarika.generator.service.repository.Repository;
 import ambovombe.kombarika.generator.service.view.View;
@@ -73,6 +74,20 @@ public class CodeGenerator {
         String language = splittedLang[0]; String framework = splittedLang[1];
         String controller = buildController(table, packageName, repository, entity, language, framework);
         generateControllerFile(path, table, packageName, language, framework, controller);
+    }
+
+    public void generateControllerRest(
+        String path, 
+        String table, 
+        String packageName, 
+        String repository, 
+        String entity, 
+        String lang
+    ) throws Exception{
+        String[] splittedLang = lang.split(":");
+        String language = splittedLang[0]; String framework = splittedLang[1];
+        String controller = buildControllerRest(table, packageName, repository, entity, language, framework);
+        generateControllerRestFile(path, table, packageName, language, framework, controller);
     }
 
     public void generateRepository(
@@ -160,6 +175,19 @@ public class CodeGenerator {
         return controller.generateController(template, table, packageName, repository, entity);
     }
 
+    public String buildControllerRest(String table, String packageName, String repository, String entity, String language, String framework) throws Exception{
+        LanguageProperties languageProperties = getLanguageDetails().getLanguages().get(language);
+        FrameworkProperties frameworkProperties = languageProperties.getFrameworks().get(framework);
+        String template = frameworkProperties.getTemplate();
+        ControllerRest controller = new ControllerRest();
+        controller.setAnnotationPropertyControllerRest(frameworkProperties.getAnnotationPropertyControllerRest());
+        controller.setControllerRestProperty(frameworkProperties.getControllerRestProperty());
+        controller.setCrudMethod(frameworkProperties.getCrudMethod());
+        controller.setImportsControllerRest(frameworkProperties.getImportsControllerRest());
+        controller.setLanguageProperties(languageProperties);
+        return controller.generateControllerRest(template, table, packageName, repository, entity);
+    }
+
     public void generateControllerFile(
         String path,
         String table,
@@ -173,6 +201,20 @@ public class CodeGenerator {
         FileUtility.createDirectory(directory,path);
         path = path + File.separator + directory;
         FileUtility.generateFile(path, GeneratorService.getFileName(table+"Controller", languageProperties.getExtension()), content);
+    }
+    public void generateControllerRestFile(
+        String path,
+        String table,
+        String packageName,
+        String language,
+        String framework,
+        String content
+    ) throws Exception{
+        LanguageProperties languageProperties = getLanguageDetails().getLanguages().get(language);
+        String directory = packageName.replace(".", File.separator);
+        FileUtility.createDirectory(directory,path);
+        path = path + File.separator + directory;
+        FileUtility.generateFile(path, GeneratorService.getFileName(table+"RestController", languageProperties.getExtension()), content);
     }
 
     public String buildRepository(
@@ -239,6 +281,7 @@ public class CodeGenerator {
             generateEntity(path, table, packageName + "." + entity, framework);
             generateRepository(path, table, packageName + "." + repository, packageName + "." + entity, framework);
             generateController(path, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
+            generateControllerRest(path, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateView(path, table, view, url); 
             generateVueJs(path, table, view, url); 
         }

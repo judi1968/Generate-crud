@@ -33,6 +33,7 @@ public class LanguageProperties {
     private String listSyntax;
     private HashMap<String, FrameworkProperties> frameworks;
 
+
     //CONSTRUCTOR
     public LanguageProperties(){}
 

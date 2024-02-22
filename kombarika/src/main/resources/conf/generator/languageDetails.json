@@ -117,12 +117,46 @@
                             "org.springframework.data.jpa.repository.Query"
                         ]
                     },
+                    "importsControllerRest" : {
+                        "controllerRest":[
+                            "packageName.classNameRepository",
+                            "entity.className",
+                            "org.springframework.http.*",
+                            "org.springframework.beans.factory.annotation.Autowired",
+                            "org.springframework.web.bind.annotation.*"
+                        ],
+                        "entity":[
+                            "jakarta.persistence.*"
+                        ],
+                        "repository":[
+                            "packageName.className",
+                            "org.springframework.data.repository.CrudRepository",
+                            "org.springframework.data.jpa.repository.Query"
+                        ]
+                    },
                     "annotationProperty" : {
                         "table": "Table(name = \"?\")",
                         "autoIncrement":"GeneratedValue(strategy=GenerationType.IDENTITY)",
                         "column": "Column(name = \"?\")",
                         "entity": "Entity",
                         "controller": "RestController\n@CrossOrigin(\"*\")",
+                        "constraints": {
+                            "primaryKey": "Id",
+                            "foreignKey": {
+                                "annotation":"JoinColumn(name = \"?\")",
+                                "manyToOne":"ManyToOne",
+                                "manyToMany":"",
+                                "oneToMany":"",
+                                "oneToOne":""
+                            }
+                        }
+                    },
+                    "annotationPropertyControllerRest" : {
+                        "table": "Table(name = \"?\")",
+                        "autoIncrement":"GeneratedValue(strategy=GenerationType.IDENTITY)",
+                        "column": "Column(name = \"?\")",
+                        "entity": "Entity",
+                        "controllerRest": "RestController\n@CrossOrigin(\"*\")",
                         "constraints": {
                             "primaryKey": "Id",
                             "foreignKey": {
@@ -142,6 +176,20 @@
                         "save": "return ResponseEntity.ok(repository.save(#object#));"
                     },
                     "controllerProperty" : {
+                        "path": "RequestMapping(path = \"?\")",
+                        "get": "GetMapping()",
+                        "post": "PostMapping()",
+                        "put": "PutMapping()",
+                        "delete": "DeleteMapping()",
+                        "field": "private ?Repository repository;",
+                        "returnType": "ResponseEntity<?>",
+                        "annotationField": "Autowired",
+                        "annotationMethodParameter":"",
+                        "annotationArgumentParameterFormData":"RequestBody",
+                        "annotationArgumentParameterLink":"PathVariable",
+                        "constructor": ""
+                    },
+                    "controllerRestProperty" : {
                         "path": "RequestMapping(path = \"?\")",
                         "get": "GetMapping()",
                         "post": "PostMapping()",
