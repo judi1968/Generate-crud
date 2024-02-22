@@ -37,7 +37,9 @@ public class ControllerRest{
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
                 .replace("#body#", body);
-        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getPost()) + "\n" + function);
+        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax()
+                            .replace("?", this.getControllerRestProperty().getPost()
+                                .replace("className", '"'+"/"+table+'"')) + "\n" + function);
     }
 
     public String update(String table) throws Exception{
@@ -119,9 +121,6 @@ public class ControllerRest{
         String res = "";
         res += this.getLanguageProperties().getAnnotationSyntax()
                 .replace("?", this.getAnnotationPropertyControllerRest().getControllerRest()) + "\n"
-                + this.getLanguageProperties().getAnnotationSyntax()
-                .replace("?", this.getControllerRestProperty().getPath())
-                .replace("?", ObjectUtility.formatToCamelCase(table)) + "\n"
                 + this.getLanguageProperties().getClassSyntax() + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table).concat("ControllerRest")) + "\n";
         return res;
@@ -155,7 +154,7 @@ public class ControllerRest{
                 .replace("#class#", getControllerRestClass(table))
                 .replace("#open-bracket#", languageProperties.getOpenBracket())
                 .replace("#close-bracket#", languageProperties.getCloseBracket())
-                .replace("#fields#", getControllerRestField(table))
+                .replace("#fields#", " ")
                 .replace("#constructors#", getConstructor(table))
                 .replace("#methods#", getCrudMethods(table))
                 .replace("#encapsulation#", "");

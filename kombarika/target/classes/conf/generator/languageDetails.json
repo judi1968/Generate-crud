@@ -189,9 +189,8 @@
                         "constructor": ""
                     },
                     "controllerRestProperty" : {
-                        "path": "RequestMapping(path = \"?\")",
                         "get": "GetMapping()",
-                        "post": "PostMapping()",
+                        "post": "PostMapping(className)",
                         "put": "PutMapping()",
                         "delete": "DeleteMapping()",
                         "field": "private ?Repository repository;",
