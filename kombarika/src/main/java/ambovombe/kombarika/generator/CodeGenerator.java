@@ -219,6 +219,7 @@ public class CodeGenerator {
         view.setViewVueJsDetails(this.getViewVueJsDetails());
         return view.generateViewVueJs(table, url, dbConnection);
     }
+    
     // public static String getTemplate() throws Exception{
     //     String path = Misc.getSourceTemplateLocation() + File.separator + "Template.code";
     //     return FileUtility.readOneFile(path);

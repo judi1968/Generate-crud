@@ -7,13 +7,13 @@ package ambovombe.kombarika;
 import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.CodeGenerator;
 import ambovombe.kombarika.generator.service.DbService;
-
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.HashMap;
+
 /**
  *
- *  @author Judi
+ * @author Judi
  */
 public class Test {
 
@@ -21,7 +21,7 @@ public class Test {
      * @param args the command line arguments
      * @throws SQLException
      */
-     
+
     public static void main(String[] args) throws Exception {
         CodeGenerator codeGenerator = new CodeGenerator();
         String path = "./";
@@ -32,25 +32,31 @@ public class Test {
         String repository = "repository";
         String view = "view";
         String url = "http://localhost:8080";
-        try{
+        try {
             // String[] tables = {"district","region"};
             // DbConnection dbConnection = codeGenerator.getDbConnection();
-            // String str = dbConnection.getListConnection().get(dbConnection.getInUseConnection()).getDatabaseType().getForeignKeyQuery();
+            // String str =
+            // dbConnection.getListConnection().get(dbConnection.getInUseConnection()).getDatabaseType().getForeignKeyQuery();
             // str = str.replace("?", "commune");
             // System.out.println(str);
-            // HashMap<String, String> foreignKeys = DbService.getForeignKeys(dbConnection, "commune");
+            // HashMap<String, String> foreignKeys = DbService.getForeignKeys(dbConnection,
+            // "commune");
             // for (Map.Entry<String, String> set : foreignKeys.entrySet()) {
-            //     System.out.println(set.getKey() + " " + set.getValue());
+            // System.out.println(set.getKey() + " " + set.getValue());
             // }
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             // for(String table: tables)
-            //     System.out.println(table);
+            // System.out.println(table);
             codeGenerator.generateAll(path, packageName, entity, controller, repository, view, url, tables, framework);
-            
+            HashMap<String, String> FK = DbService.getForeignKeys(codeGenerator.getDbConnection(), "meublecomposant");
+            for (Map.Entry<String, String> entry : FK.entrySet()) {
+                System.out.println(entry.getKey() + " : " + entry.getValue());
+            }
+
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             codeGenerator.getDbConnection().close();
         }
     }

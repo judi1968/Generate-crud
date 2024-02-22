@@ -113,7 +113,6 @@ public class Controller{
         }
         return res;
     }
-    
 
     public  String getControllerClass(String table){
         String res = "";
