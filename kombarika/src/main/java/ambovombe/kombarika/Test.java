@@ -30,7 +30,7 @@ public class Test {
         String packageName = "com.package.generate";
         String entity = "entity";
         String controller = "controller";
-        String repository = "repository";
+        String repository = "models";
         String view = "view";
         String url = "http://localhost:8080";
         try{

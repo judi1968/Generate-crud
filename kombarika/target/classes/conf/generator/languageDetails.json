@@ -119,8 +119,7 @@
                     },
                     "importsControllerRest" : {
                         "controllerRest":[
-                            "packageName.classNameRepository",
-                            "entity.className",
+                            "packageName.className",
                             "org.springframework.http.*",
                             "org.springframework.beans.factory.annotation.Autowired",
                             "org.springframework.web.bind.annotation.*"
