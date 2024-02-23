@@ -32,7 +32,7 @@ public class VueJs {
     private static String generateColumnTitle(HashMap<String, String> columns) {
         StringBuilder titleBuilder = new StringBuilder();
         for (String columnName : columns.keySet()) {
-            titleBuilder.append("<th scope=\"col\">").append(columnName).append("</th>");
+            titleBuilder.append("<th scope=\"col\">").append(columnName).append("</th>\n\t\t\t");
         }
         return titleBuilder.toString();
     }
@@ -40,7 +40,7 @@ public class VueJs {
     private static String generateColumnRows(HashMap<String, String> columns) {
         StringBuilder rowBuilder = new StringBuilder();
         for (String columnName : columns.keySet()) {
-            rowBuilder.append("<td>{{ item.").append(ObjectUtility.formatToCamelCase(columnName)).append(" }}</td>");
+            rowBuilder.append("<td>{{ item.").append(ObjectUtility.formatToCamelCase(columnName)).append(" }}</td>\n\t");
         }
         return rowBuilder.toString();
     }
@@ -55,7 +55,7 @@ public class VueJs {
                     .append("<input type=\"text\" class=\"form-control\" id=\"")
                     .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"")
                     .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
-                    .append("</div>");
+                    .append("</div>\n\t\t");
         }
         return addBuilder.toString();
     }
@@ -70,7 +70,7 @@ public class VueJs {
                     .append("<input type=\"text\" class=\"form-control\" id=\"")
                     .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"selectedItem.")
                     .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
-                    .append("</div>");
+                    .append("</div>\n\t\t");
         }
         return editBuilder.toString();
     }

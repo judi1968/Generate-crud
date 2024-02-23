@@ -9,7 +9,10 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">id_composant</th><th scope="col">id_meuble</th><th scope="col">quantite</th> <!-- <th scope="col">Action</th>-->
+                            <th scope="col">id_composant</th>
+			<th scope="col">id_meuble</th>
+			<th scope="col">quantite</th>
+			 <!-- <th scope="col">Action</th>-->
                             <th scope="col">Action</th>
                             <th>mofifier</th>
                         </tr>
@@ -17,7 +20,10 @@
                     <tbody>
                         <tr v-for="(item, index) in Liste" :key="index" @click="selectItem(item)">
                             <th scope="row">{{ index + 1 }}</th>
-                             <td>{{ item.idComposant }}</td><td>{{ item.idMeuble }}</td><td>{{ item.quantite }}</td> <!-- <td>{{ item.temperatureF }}</td> -->
+                             <td>{{ item.idComposant }}</td>
+	<td>{{ item.idMeuble }}</td>
+	<td>{{ item.quantite }}</td>
+	 <!-- <td>{{ item.temperatureF }}</td> -->
                             <td>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
                                     class="btn btn-primary btn-sm">Modifier</button>
@@ -44,7 +50,10 @@
                     <div class="modal-body">
                         <form @submit.prevent="submitForm">
                             
-                            <div class="mb-3"><label for="idComposant" class="form-label">id_composant</label><input type="text" class="form-control" id="idComposant" v-model="idComposant"></div><div class="mb-3"><label for="idMeuble" class="form-label">id_meuble</label><input type="text" class="form-control" id="idMeuble" v-model="idMeuble"></div><div class="mb-3"><label for="quantite" class="form-label">quantite</label><input type="text" class="form-control" id="quantite" v-model="quantite"></div>
+                            <div class="mb-3"><label for="idComposant" class="form-label">id_composant</label><input type="text" class="form-control" id="idComposant" v-model="idComposant"></div>
+		<div class="mb-3"><label for="idMeuble" class="form-label">id_meuble</label><input type="text" class="form-control" id="idMeuble" v-model="idMeuble"></div>
+		<div class="mb-3"><label for="quantite" class="form-label">quantite</label><input type="text" class="form-control" id="quantite" v-model="quantite"></div>
+		
                             <!-- <div class="mb-3">
                                 <label for="inputNom" class="form-label">TemperatureF</label>
                                 <input type="text" class="form-control" id="inputNom" v-model="TemperatureF">
@@ -70,7 +79,10 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="submitForm">
-                        <div class="mb-3"><label for="idComposant" class="form-label">id_composant</label><input type="text" class="form-control" id="idComposant" v-model="selectedItem.idComposant"></div><div class="mb-3"><label for="idMeuble" class="form-label">id_meuble</label><input type="text" class="form-control" id="idMeuble" v-model="selectedItem.idMeuble"></div><div class="mb-3"><label for="quantite" class="form-label">quantite</label><input type="text" class="form-control" id="quantite" v-model="selectedItem.quantite"></div>
+                        <div class="mb-3"><label for="idComposant" class="form-label">id_composant</label><input type="text" class="form-control" id="idComposant" v-model="selectedItem.idComposant"></div>
+		<div class="mb-3"><label for="idMeuble" class="form-label">id_meuble</label><input type="text" class="form-control" id="idMeuble" v-model="selectedItem.idMeuble"></div>
+		<div class="mb-3"><label for="quantite" class="form-label">quantite</label><input type="text" class="form-control" id="quantite" v-model="selectedItem.quantite"></div>
+		
                         <!-- <div class="mb-3">
                             <label for="inputAge" class="form-label">summary</label>
                             <input type="text" class="form-control" id="inputAge" v-model="selectedItem.summary">

@@ -9,7 +9,11 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">description</th><th scope="col">id</th><th scope="col">type</th><th scope="col">nom</th> <!-- <th scope="col">Action</th>-->
+                            <th scope="col">description</th>
+			<th scope="col">id</th>
+			<th scope="col">type</th>
+			<th scope="col">nom</th>
+			 <!-- <th scope="col">Action</th>-->
                             <th scope="col">Action</th>
                             <th>mofifier</th>
                         </tr>
@@ -17,7 +21,11 @@
                     <tbody>
                         <tr v-for="(item, index) in Liste" :key="index" @click="selectItem(item)">
                             <th scope="row">{{ index + 1 }}</th>
-                             <td>{{ item.description }}</td><td>{{ item.id }}</td><td>{{ item.type }}</td><td>{{ item.nom }}</td> <!-- <td>{{ item.temperatureF }}</td> -->
+                             <td>{{ item.description }}</td>
+	<td>{{ item.id }}</td>
+	<td>{{ item.type }}</td>
+	<td>{{ item.nom }}</td>
+	 <!-- <td>{{ item.temperatureF }}</td> -->
                             <td>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
                                     class="btn btn-primary btn-sm">Modifier</button>
@@ -44,7 +52,11 @@
                     <div class="modal-body">
                         <form @submit.prevent="submitForm">
                             
-                            <div class="mb-3"><label for="description" class="form-label">description</label><input type="text" class="form-control" id="description" v-model="description"></div><div class="mb-3"><label for="id" class="form-label">id</label><input type="text" class="form-control" id="id" v-model="id"></div><div class="mb-3"><label for="type" class="form-label">type</label><input type="text" class="form-control" id="type" v-model="type"></div><div class="mb-3"><label for="nom" class="form-label">nom</label><input type="text" class="form-control" id="nom" v-model="nom"></div>
+                            <div class="mb-3"><label for="description" class="form-label">description</label><input type="text" class="form-control" id="description" v-model="description"></div>
+		<div class="mb-3"><label for="id" class="form-label">id</label><input type="text" class="form-control" id="id" v-model="id"></div>
+		<div class="mb-3"><label for="type" class="form-label">type</label><input type="text" class="form-control" id="type" v-model="type"></div>
+		<div class="mb-3"><label for="nom" class="form-label">nom</label><input type="text" class="form-control" id="nom" v-model="nom"></div>
+		
                             <!-- <div class="mb-3">
                                 <label for="inputNom" class="form-label">TemperatureF</label>
                                 <input type="text" class="form-control" id="inputNom" v-model="TemperatureF">
@@ -70,7 +82,11 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="submitForm">
-                        <div class="mb-3"><label for="description" class="form-label">description</label><input type="text" class="form-control" id="description" v-model="selectedItem.description"></div><div class="mb-3"><label for="id" class="form-label">id</label><input type="text" class="form-control" id="id" v-model="selectedItem.id"></div><div class="mb-3"><label for="type" class="form-label">type</label><input type="text" class="form-control" id="type" v-model="selectedItem.type"></div><div class="mb-3"><label for="nom" class="form-label">nom</label><input type="text" class="form-control" id="nom" v-model="selectedItem.nom"></div>
+                        <div class="mb-3"><label for="description" class="form-label">description</label><input type="text" class="form-control" id="description" v-model="selectedItem.description"></div>
+		<div class="mb-3"><label for="id" class="form-label">id</label><input type="text" class="form-control" id="id" v-model="selectedItem.id"></div>
+		<div class="mb-3"><label for="type" class="form-label">type</label><input type="text" class="form-control" id="type" v-model="selectedItem.type"></div>
+		<div class="mb-3"><label for="nom" class="form-label">nom</label><input type="text" class="form-control" id="nom" v-model="selectedItem.nom"></div>
+		
                         <!-- <div class="mb-3">
                             <label for="inputAge" class="form-label">summary</label>
                             <input type="text" class="form-control" id="inputAge" v-model="selectedItem.summary">
