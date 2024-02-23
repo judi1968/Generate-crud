@@ -85,7 +85,7 @@ public class ControllerRest{
     }
 
     public String findById(String table) throws Exception{
-        String res = "";
+        String res = "akory";
         return res;
     }
     public String getCrudMethodRestControllers(String table) throws Exception {
@@ -94,6 +94,7 @@ public class ControllerRest{
         String findAll = findAll(table);
         String update = update(table);
         String delete = delete(table);
+        String findById = findById(table);
         stringBuilder.append(save);
         stringBuilder.append("\n");
         stringBuilder.append(update);
@@ -101,6 +102,8 @@ public class ControllerRest{
         stringBuilder.append(delete);
         stringBuilder.append("\n");
         stringBuilder.append(findAll);
+        stringBuilder.append("\n");
+        stringBuilder.append(findById);
         return stringBuilder.toString();
     }
 
