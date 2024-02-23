@@ -24,7 +24,11 @@ public class VueJs {
                 .replace("#column-title#", generateColumnTitle(columns))
                 .replace("#column-row#", generateColumnRows(columns))
                 .replace("#column-add#", generateColumnAdd(columns))
-                .replace("#column-edit#", generateColumnEdit(columns));
+                .replace("#column-edit#", generateColumnEdit(columns))
+                .replace("#ListeFK#", generateListeFK(foreignKeys))
+                .replace("#column#", generateColumn(columns))
+                .replace("#api-add-column#", generateApiAddColumn(columns))
+                .replace("#api-update-column#", generateApiUpdateColumn(columns));
 
         return res;
     }
@@ -37,12 +41,32 @@ public class VueJs {
         return titleBuilder.toString();
     }
 
+    private static String generateListeFK(HashMap<String, String> foreignKeys) {
+        StringBuilder fkBuilder = new StringBuilder();
+        for (String fk : foreignKeys.keySet()) {
+            String fkCamelCase = ObjectUtility.formatToCamelCase(fk);
+            String relatedTable = foreignKeys.get(fk);
+            fkBuilder.append("// ").append(fk).append(": []").append("\n\t\t\t");
+            fkBuilder.append(fkCamelCase).append(": [],").append("\n\t\t\t");
+        }
+        return fkBuilder.toString();
+    }
+
     private static String generateColumnRows(HashMap<String, String> columns) {
         StringBuilder rowBuilder = new StringBuilder();
         for (String columnName : columns.keySet()) {
-            rowBuilder.append("<td>{{ item.").append(ObjectUtility.formatToCamelCase(columnName)).append(" }}</td>\n\t");
+            rowBuilder.append("<td>{{ item.").append(ObjectUtility.formatToCamelCase(columnName))
+                    .append(" }}</td>\n\t");
         }
         return rowBuilder.toString();
+    }
+
+    private static String generateColumn(HashMap<String, String> columns) {
+        StringBuilder columnBuilder = new StringBuilder();
+        for (String columnName : columns.keySet()) {
+            columnBuilder.append(ObjectUtility.formatToCamelCase(columnName)).append(",\n\t\t\t\t");
+        }
+        return columnBuilder.toString();
     }
 
     private static String generateColumnAdd(HashMap<String, String> columns) {
@@ -58,6 +82,24 @@ public class VueJs {
                     .append("</div>\n\t\t");
         }
         return addBuilder.toString();
+    }
+    
+    private static String generateApiUpdateColumn(HashMap<String, String> columns) {
+        StringBuilder updateColumnBuilder = new StringBuilder();
+        for (String columnName : columns.keySet()) {
+            updateColumnBuilder.append(ObjectUtility.formatToCamelCase(columnName)).append(": this.selectedItem.")
+                    .append(ObjectUtility.formatToCamelCase(columnName)).append(",\n\t\t\t\t");
+        }
+        return updateColumnBuilder.toString();
+    }
+
+    private static String generateApiAddColumn(HashMap<String, String> columns) {
+        StringBuilder addColumnBuilder = new StringBuilder();
+        for (String columnName : columns.keySet()) {
+            addColumnBuilder.append(ObjectUtility.formatToCamelCase(columnName)).append(": this.")
+                    .append(ObjectUtility.formatToCamelCase(columnName)).append(",\n\t\t\t\t");
+        }
+        return addColumnBuilder.toString();
     }
 
     private static String generateColumnEdit(HashMap<String, String> columns) {

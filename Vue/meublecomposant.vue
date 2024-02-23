@@ -121,6 +121,21 @@ import "bootstrap/dist/js/bootstrap.min.js";
 export default {
     data() {
         return {
+            idComposant,
+				idMeuble,
+				quantite,
+				
+            <!-- 
+                TemperatureC,
+                TemperatureF,
+                summary
+             -->
+            // id_composant: []
+			idComposant: [],
+			// id_meuble: []
+			idMeuble: [],
+			
+            <!-- Personne[], -->
             Liste: [],
             selectedItem: {},
         };
@@ -148,9 +163,13 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        temperatureF: this.TemperatureF,
+                        idComposant: this.idComposant,
+				idMeuble: this.idMeuble,
+				quantite: this.quantite,
+				
+                       <!-- temperatureF: this.TemperatureF,
                         temperatureC: this.TemperatureC,
-                        summary: this.summary
+                        summary: this.summary -->
                     })
                 });
                 if (!response.ok) {
@@ -169,9 +188,14 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        idComposant: this.selectedItem.idComposant,
+				idMeuble: this.selectedItem.idMeuble,
+				quantite: this.selectedItem.quantite,
+				
+                        <!--
                         temperatureF: this.selectedItem.temperatureF,
                         temperatureC: this.selectedItem.temperatureC,
-                        summary: this.selectedItem.summary
+                        summary: this.selectedItem.summary -->
                     })
                 });
                 if (!response.ok) {

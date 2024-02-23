@@ -109,6 +109,14 @@ import "bootstrap/dist/js/bootstrap.min.js";
 export default {
     data() {
         return {
+            #column#
+            <!-- 
+                TemperatureC,
+                TemperatureF,
+                summary
+             -->
+            #ListeFK#
+            <!-- Personne[], -->
             Liste: [],
             selectedItem: {},
         };
@@ -136,9 +144,10 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        temperatureF: this.TemperatureF,
+                        #api-add-column#
+                       <!-- temperatureF: this.TemperatureF,
                         temperatureC: this.TemperatureC,
-                        summary: this.summary
+                        summary: this.summary -->
                     })
                 });
                 if (!response.ok) {
@@ -157,9 +166,11 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
+                        #api-update-column#
+                        <!--
                         temperatureF: this.selectedItem.temperatureF,
                         temperatureC: this.selectedItem.temperatureC,
-                        summary: this.selectedItem.summary
+                        summary: this.selectedItem.summary -->
                     })
                 });
                 if (!response.ok) {
