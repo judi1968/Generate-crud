@@ -71,7 +71,7 @@
 </body>
 <script>
     $.ajax({
-        url: 'http://localhost:8080/composants',
+        url: 'http://localhost:5289/composants',
         type: 'GET',
         success: function(data) {
             //console.log(data)
@@ -133,7 +133,7 @@
                 $('#delete-'+data[i]["id"]).click(function() {
                     var d = data[i]
                     $.ajax({
-                        url: 'http://localhost:8080/composants',
+                        url: 'http://localhost:5289/composants',
                         type: 'DELETE',
                         data: JSON.stringify(d),
                         contentType: 'application/json',
@@ -159,7 +159,7 @@
                         }
                     });
                     $.ajax({
-                        url: 'http://localhost:8080/composants',
+                        url: 'http://localhost:5289/composants',
                         type: 'PUT',
                         data: JSON.stringify(datas),
                         contentType: 'application/json',
@@ -194,7 +194,7 @@
             }
         });
         $.ajax({
-            url: 'http://localhost:8080/composants',
+            url: 'http://localhost:5289/composants',
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',

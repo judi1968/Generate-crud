@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 <div  class="mb-3"> 
- <h1>CRUD Style</h1>
+ <h1>CRUD Weatherforecast</h1>
 </div>    
     <table class="table align-middle mb-0 bg-white">
   <thead class="bg-light">

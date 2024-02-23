@@ -31,7 +31,7 @@ public class Test {
         String controller = "controller";
         String repository = "repository";
         String view = "view";
-        String url = "http://localhost:8080";
+        String url = "http://localhost:5289";
         try {
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             codeGenerator.generateAll(path, packageName, entity, controller, repository, view, url, tables, framework);
