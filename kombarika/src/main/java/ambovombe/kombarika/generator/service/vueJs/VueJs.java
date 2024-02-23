@@ -29,8 +29,9 @@ public class VueJs {
                 .replace("#ListeFK#", generateListeFK(foreignkeys))
                 .replace("#column#", generateColumn(columns))
                 .replace("#api-add-column#", generateApiAddColumn(columns))
-                .replace("#api-update-column#", generateApiUpdateColumn(columns));
-
+                .replace("#api-update-column#", generateApiUpdateColumn(columns))
+                .replace("#mounted-api-FK#", generateMountedApiFK(foreignkeys))
+                .replace("#api-FK#", generateApiFK(foreignkeys, API));
         return res;
     }
 
@@ -101,6 +102,36 @@ public class VueJs {
                     .append(ObjectUtility.formatToCamelCase(columnName)).append(",\n\t\t\t\t\t\t\t\t");
         }
         return addColumnBuilder.toString();
+    }
+
+    private static String generateMountedApiFK(HashMap<String, String> foreignKeys) {
+        StringBuilder mountedBuilder = new StringBuilder();
+        for (String fk : foreignKeys.keySet()) {
+            String fkCamelCase = ObjectUtility.formatToCamelCase(fk).substring(2);
+            mountedBuilder.append("this.findAll").append(fkCamelCase).append("();\n\t\t");
+        }
+        return mountedBuilder.toString();
+    }
+
+    private static String generateApiFK(HashMap<String, String> foreignKeys, String api) {
+        StringBuilder fkMethodBuilder = new StringBuilder();
+        for (String fk : foreignKeys.keySet()) {
+            String fkCamelCase = ObjectUtility.formatToCamelCase(fk).substring(2);
+            String relatedTable = foreignKeys.get(fk);
+            fkMethodBuilder.append("async findAll").append(fkCamelCase).append("() {\n");
+            fkMethodBuilder.append("\t\t\ttry {\n");
+            fkMethodBuilder.append("\t\t\t\tconst response = await fetch('").append(api + "/").append(relatedTable)
+                    .append("');\n");
+            fkMethodBuilder.append("\t\t\t\tif (!response.ok) {\n");
+            fkMethodBuilder.append("\t\t\t\t\tthrow new Error('Erreur de réseau');\n");
+            fkMethodBuilder.append("\t\t\t\t}\n");
+            fkMethodBuilder.append("\t\t\t\tthis.").append(fkCamelCase).append(" = await response.json();\n");
+            fkMethodBuilder.append("\t\t\t\t} catch (error) {\n");
+            fkMethodBuilder.append("\t\t\t\t\tconsole.error('Erreur lors de la récupération :', error);\n");
+            fkMethodBuilder.append("\t\t\t}\n");
+            fkMethodBuilder.append("\t\t},\n\n\t\t");
+        }
+        return fkMethodBuilder.toString();
     }
 
     private static String generateColumnEdit(HashMap<String, String> columns) {

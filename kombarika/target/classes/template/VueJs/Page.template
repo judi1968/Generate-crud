@@ -108,8 +108,10 @@ export default {
     },
     mounted() {
         this.findAll();
+        #mounted-api-FK#
     },
     methods: {
+        #api-FK#
         async findAll() {
             try {
                 const response = await fetch('#API#/#table#');
@@ -118,7 +120,7 @@ export default {
                 }
                 this.Liste = await response.json();
             } catch (error) {
-                console.error('Erreur lors de la récupération des personnes:', error);
+                console.error('Erreur lors de la récupération de l\'élément:', error);
             }
         },
         async addElement() {
