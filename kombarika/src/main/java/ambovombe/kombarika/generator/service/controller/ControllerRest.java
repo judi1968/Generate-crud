@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ControllerRest{
     LanguageProperties languageProperties;
-    CrudMethod crudMethod;
+    CrudMethodRestController crudMethodRestController;
     ControllerRestProperty controllerRestProperty;
     AnnotationPropertyControllerRest annotationPropertyControllerRest;
     ImportsControllerRest importsControllerRest;
@@ -31,9 +31,9 @@ public class ControllerRest{
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table);
         body += Misc.tabulate(
-            this.getCrudMethod().getSave().replace("#object#", ObjectUtility.formatToCamelCase(table)));        
+            this.getCrudMethodRestController().getSave().replace("className", table));        
         String function =  this.getLanguageProperties().getMethodSyntax()
-                .replace("#name#", "save")
+                .replace("#name#", "create")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
                 .replace("#body#", body);
@@ -49,7 +49,7 @@ public class ControllerRest{
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table);
         body += Misc.tabulate(
-            this.getCrudMethod().getUpdate().replace("#object#", ObjectUtility.formatToCamelCase(table)));
+            this.getCrudMethodRestController().getUpdate().replace("#object#", ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "update")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
@@ -64,7 +64,7 @@ public class ControllerRest{
         args += this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getAnnotationArgumentParameterFormData()) + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table);
-        body += Misc.tabulate(this.getCrudMethod().getDelete().replace("#object#", ObjectUtility.formatToCamelCase(table)));
+        body += Misc.tabulate(this.getCrudMethodRestController().getDelete().replace("#object#", ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "delete")
                 .replace("#type#", "void")
@@ -75,7 +75,7 @@ public class ControllerRest{
 
     public String findAll(String table){
         String body = "";
-        body += Misc.tabulate(this.getCrudMethod().getFindAll().replace("#object#", ObjectUtility.formatToCamelCase(table)));
+        body += Misc.tabulate(this.getCrudMethodRestController().getFindAll().replace("#object#", ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "findAll")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", this.getLanguageProperties().getListSyntax().replace("?",ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))))
@@ -88,7 +88,7 @@ public class ControllerRest{
         String res = "";
         return res;
     }
-    public String getCrudMethods(String table) throws Exception {
+    public String getCrudMethodRestControllers(String table) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
         String save = save(table);
         String findAll = findAll(table);
@@ -156,7 +156,7 @@ public class ControllerRest{
                 .replace("#close-bracket#", languageProperties.getCloseBracket())
                 .replace("#fields#", " ")
                 .replace("#constructors#", getConstructor(table))
-                .replace("#methods#", getCrudMethods(table))
+                .replace("#methods#", getCrudMethodRestControllers(table))
                 .replace("#encapsulation#", "");
         return res;
     }

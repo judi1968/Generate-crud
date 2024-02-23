@@ -19,6 +19,7 @@ public class FrameworkProperties {
     AnnotationProperty annotationProperty;
     AnnotationPropertyControllerRest annotationPropertyControllerRest;
     CrudMethod crudMethod;
+    CrudMethodRestController crudMethodRestController;
     ControllerProperty controllerProperty;
     ControllerRestProperty controllerRestProperty;
 

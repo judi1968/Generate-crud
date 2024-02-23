@@ -182,7 +182,7 @@ public class CodeGenerator {
         ControllerRest controller = new ControllerRest();
         controller.setAnnotationPropertyControllerRest(frameworkProperties.getAnnotationPropertyControllerRest());
         controller.setControllerRestProperty(frameworkProperties.getControllerRestProperty());
-        controller.setCrudMethod(frameworkProperties.getCrudMethod());
+        controller.setCrudMethodRestController(frameworkProperties.getCrudMethodRestController());
         controller.setImportsControllerRest(frameworkProperties.getImportsControllerRest());
         controller.setLanguageProperties(languageProperties);
         return controller.generateControllerRest(template, table, packageName, repository, entity);
