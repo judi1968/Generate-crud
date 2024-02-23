@@ -3,7 +3,7 @@ package ambovombe.kombarika;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-
+import ambovombe.kombarika.generator.service.vueJs.VueJs;
 import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.CodeGenerator;
 import ambovombe.kombarika.generator.service.DbService;
@@ -33,27 +33,10 @@ public class Test {
         String view = "view";
         String url = "http://localhost:8080";
         try {
-            // String[] tables = {"district","region"};
-            // DbConnection dbConnection = codeGenerator.getDbConnection();
-            // String str =
-            // dbConnection.getListConnection().get(dbConnection.getInUseConnection()).getDatabaseType().getForeignKeyQuery();
-            // str = str.replace("?", "commune");
-            // System.out.println(str);
-            // HashMap<String, String> foreignKeys = DbService.getForeignKeys(dbConnection,
-            // "commune");
-            // for (Map.Entry<String, String> set : foreignKeys.entrySet()) {
-            // System.out.println(set.getKey() + " " + set.getValue());
-            // }
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
-            // for(String table: tables)
-            // System.out.println(table);
             codeGenerator.generateAll(path, packageName, entity, controller, repository, view, url, tables, framework);
-            HashMap<String, String> FK = DbService.getForeignKeys(codeGenerator.getDbConnection(), "meublecomposant");
-            for (Map.Entry<String, String> entry : FK.entrySet()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-            }
+            VueJs.generateAllViews(tables, url, codeGenerator.getDbConnection());
 
-            // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
