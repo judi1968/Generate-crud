@@ -9,9 +9,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <td>temperatureF</td>
-                            <td>temperatureC</td>
-                            <td>summary</td>
+                            #column-title# <!-- <th scope="col">Action</th>-->
                             <th scope="col">Action</th>
                             <th>mofifier</th>
                         </tr>
@@ -19,14 +17,14 @@
                     <tbody>
                         <tr v-for="(item, index) in Liste" :key="index" @click="selectItem(item)">
                             <th scope="row">{{ index + 1 }}</th>
-                            <td>{{ item.temperatureF }}</td>
-                            <td>{{ item.temperatureC }}</td>
-                            <td>{{ item.summary }}</td>
+                             #column-row# <!-- <td>{{ item.temperatureF }}</td> -->
                             <td>
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#editModal" class="btn btn-primary btn-sm">Modifier</button>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
+                                    class="btn btn-primary btn-sm">Modifier</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
+                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal">Supprimer</button>
                             </td>
                         </tr>
                     </tbody>
@@ -45,18 +43,13 @@
                     </div>
                     <div class="modal-body">
                         <form @submit.prevent="submitForm">
-                            <div class="mb-3">
+                            
+                            #column-add#
+                            <!-- <div class="mb-3">
                                 <label for="inputNom" class="form-label">TemperatureF</label>
                                 <input type="text" class="form-control" id="inputNom" v-model="TemperatureF">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputPrenom" class="form-label">TemperatureC</label>
-                                <input type="text" class="form-control" id="inputPrenom" v-model="TemperatureC">
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputAge" class="form-label">summary</label>
-                                <input type="number" class="form-control" id="inputAge" v-model="summary">
-                            </div>
+                            </div> -->
+
                             <button type="submit" class="btn btn-primary">Ajouter</button>
                         </form>
                     </div>
@@ -77,18 +70,11 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="submitForm">
-                        <div class="mb-3">
-                            <label for="inputNom" class="form-label">TemperatureF</label>
-                            <input type="number" class="form-control" id="inputNom" v-model="selectedItem.temperatureF">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputPrenom" class="form-label">TemperatureC</label>
-                            <input type="number" class="form-control" id="inputPrenom" v-model="selectedItem.temperatureC">
-                        </div>
-                        <div class="mb-3">
+                        #column-edit#
+                        <!-- <div class="mb-3">
                             <label for="inputAge" class="form-label">summary</label>
                             <input type="text" class="form-control" id="inputAge" v-model="selectedItem.summary">
-                        </div>
+                        </div> -->
                         <button type="submit" class="btn btn-primary" style="width: ;: =100%;">Modifier</button>
                     </form>
                 </div>
@@ -99,21 +85,21 @@
         </div>
     </div>
 
-     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-danger" id="deleteModalLabel">Supprimer</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <center>
-                        <p style="padding: 20px 0px;">etes vous sure de vouloir supprimer cet element ?</p>
-                    </center>
-                    <button type="submit" class="btn-choice btn btn-primary">oui</button>
-                    <button type="button" class="btn-choice btn btn-danger" data-bs-dismiss="modal">non</button>
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="deleteModalLabel">Supprimer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <center>
+                    <p style="padding: 20px 0px;">etes vous sure de vouloir supprimer cet element ?</p>
+                </center>
+                <button type="submit" class="btn-choice btn btn-primary">oui</button>
+                <button type="button" class="btn-choice btn btn-danger" data-bs-dismiss="modal">non</button>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -133,9 +119,9 @@ export default {
     methods: {
         async findAll() {
             try {
-                const response = await fetch('http://localhost:5289/WeatherForecast');
+                const response = await fetch('#API#/#table#');
                 if (!response.ok) {
-                throw new Error('Erreur de réseau');
+                    throw new Error('Erreur de réseau');
                 }
                 this.Liste = await response.json();
             } catch (error) {
@@ -144,7 +130,7 @@ export default {
         },
         async addElement() {
             try {
-                const response = await fetch('http://localhost:5289/WeatherForecast', {
+                const response = await fetch('#API#/#table#', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -165,7 +151,7 @@ export default {
         },
         async updateElement() {
             try {
-                const response = await fetch(`http://localhost:5289/WeatherForecast/${this.selectedItem.id}`, {
+                const response = await fetch(`#API#/#table#/${this.selectedItem.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -186,7 +172,7 @@ export default {
         },
         async deleteElement(id) {
             try {
-                const response = await fetch(`http://localhost:5289/WeatherForecast/${id}`, {
+                const response = await fetch(`#API#/#table#/${id}`, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {
@@ -204,7 +190,7 @@ export default {
                 this.addElement();
             }
         },
-         selectItem(item) {
+        selectItem(item) {
             this.selectedItem = item;
         },
     }
@@ -212,12 +198,12 @@ export default {
 </script>
 
 <style>
-    .ajoute{
-        height: 100px;
-        width: 100px;
-        margin-bottom: 20px;
-    }
-    .btn-choice{
-        border-radius: 0px;
-    }
-</style>
+.ajoute {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.btn-choice {
+    border-radius: 0px;
+}</style>
