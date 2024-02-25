@@ -31,7 +31,7 @@ public class ControllerRest{
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table);
         body += Misc.tabulate(
-            this.getCrudMethodRestController().getSave().replace("className", table));        
+            this.getCrudMethodRestController().getSave().replace("className", ObjectUtility.formatToCamelCase(table)));        
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "create")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
@@ -39,7 +39,7 @@ public class ControllerRest{
                 .replace("#body#", body);
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax()
                             .replace("?", this.getControllerRestProperty().getPost()
-                                .replace("className", '"'+"/"+table+'"')) + "\n" + function);
+                                .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+'"')) + "\n" + function);
     }
 
     public String update(String table) throws Exception{
@@ -51,14 +51,14 @@ public class ControllerRest{
                 + ","
                 + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
         body += Misc.tabulate(
-            this.getCrudMethodRestController().getUpdate().replace("className",table));
+            this.getCrudMethodRestController().getUpdate().replace("className",ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "update")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
                 .replace("#body#", body);
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getPut()
-        .replace("classNameWithId", '"'+"/"+table+"/{id}"+'"')) + "\n" + function);
+        .replace("classNameWithId", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"/{id}"+'"')) + "\n" + function);
     }
 
     public String delete(String table) throws Exception{
@@ -70,14 +70,14 @@ public class ControllerRest{
                 + ","
                 + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
         body += Misc.tabulate(
-            this.getCrudMethodRestController().getDelete().replace("className", table));
+            this.getCrudMethodRestController().getDelete().replace("className", ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "delete")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
                 .replace("#body#", body);
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getDelete()
-        .replace("classNameWithId", '"'+"/"+table+"/{id}"+'"')) + "\n" + function);
+        .replace("classNameWithId", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"/{id}"+'"')) + "\n" + function);
     }
 
     public String findAll(String table){
@@ -88,12 +88,25 @@ public class ControllerRest{
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", this.getLanguageProperties().getListSyntax().replace("?",ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))))
                 .replace("#arg#", "")
                 .replace("#body#", body);
-        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getGet()) + "\n" + function);
+        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getGet()
+        .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+'"')) + "\n" + function);
     }
 
     public String findById(String table) throws Exception{
-        String res = "akory";
-        return res;
+        String body = "";   
+        String args = "";
+        args += this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
+        body += Misc.tabulate(
+            this.getCrudMethodRestController().getFindById()
+                .replace("className", ObjectUtility.formatToCamelCase(table))
+                .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));
+        String function =  this.getLanguageProperties().getMethodSyntax()
+                .replace("#name#", "findById")
+                .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
+                .replace("#arg#", args)
+                .replace("#body#", body);
+        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getFindById()
+        .replace("classNameWithId", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"/{id}"+'"')) + "\n" + function);
     }
     public String getCrudMethodRestControllers(String table) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();

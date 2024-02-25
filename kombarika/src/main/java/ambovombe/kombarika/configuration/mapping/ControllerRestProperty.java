@@ -11,10 +11,12 @@ public class ControllerRestProperty {
     String put;
     String delete;
     String field;
+    String findById;
     String returnType;
     String annotationField;
     String annotationMethodParameter;
     String annotationArgumentParameterFormData;
     String annotationArgumentParameterLink;
     String constructor;
+    
 }
