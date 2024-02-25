@@ -1,8 +1,9 @@
 <template>
-    <div class="container mt-5">
+    <SideBar />
+    <div class="container" style="margin-left:350px;">
         <div class="row">
             <div class="col">
-                <button type="button" class="ajoute btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button style="margin-top: 70px;" type="button" class="ajoute btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Ajouter
                 </button>
                 <table class="table">
@@ -94,10 +95,15 @@
 </template>
 
 <script>
+import SideBar from "./SideBar.vue"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
+    name: "#table#",
+    components:{
+        SideBar
+    },
     data() {
         return {
             #column#

@@ -2,7 +2,7 @@
 <div id="viewport">
   <div id="sidebar">
     <header>
-        <h4 style="padding: 20px;color: white;">My Page</h4>
+        <h4 style="padding: 20px;color: white;"></h4>
     </header>
     <ul class="nav">
       #column#
@@ -17,7 +17,7 @@
     import "bootstrap/dist/js/bootstrap.min.js";
 
     export default {
-
+        name: 'SideBar'
     };
 </script>
 
