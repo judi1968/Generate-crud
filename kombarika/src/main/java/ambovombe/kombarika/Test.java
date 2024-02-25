@@ -4,6 +4,7 @@ package ambovombe.kombarika;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 import ambovombe.kombarika.generator.service.vueJs.VueJs;
+import ambovombe.kombarika.generator.service.vueJs.SideBar;
 import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.CodeGenerator;
 import ambovombe.kombarika.generator.service.DbService;
@@ -36,7 +37,7 @@ public class Test {
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             codeGenerator.generateAll(path, packageName, entity, controller, repository, view, url, tables, framework);
             VueJs.generateAllViews(tables, url, codeGenerator.getDbConnection());
-
+            SideBar.generateSideBar(tables);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

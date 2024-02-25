@@ -1,0 +1,85 @@
+<template>
+<div id="viewport">
+  <div id="sidebar">
+    <header>
+        <h4 style="padding: 20px;color: white;">My Page</h4>
+    </header>
+    <ul class="nav">
+      #column#
+    </ul>
+  </div>
+</div>
+</template>
+
+<script>
+    import "vue-router"
+    import "bootstrap/dist/css/bootstrap.min.css";
+    import "bootstrap/dist/js/bootstrap.min.js";
+
+    export default {
+
+    };
+</script>
+
+<style>
+#viewport {
+  padding-left: 250px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.nav li{
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    font-weight: 600;
+}
+
+
+#sidebar {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #37474F;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#sidebar header {
+  background-color: #263238;
+  font-size: 20px;
+  line-height: 52px;
+  text-align: center;
+}
+
+#sidebar header .link {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+}
+
+#sidebar header .link:hover {
+  color: #fff;
+}
+
+#sidebar .nav .link{
+  background: none;
+  border-bottom: 1px solid #455A64;
+  color: #CFD8DC;
+  font-size: 14px;
+  padding: 16px 24px;
+}
+
+#sidebar .nav .link:hover{
+  background: none;
+  color: #ECEFF1;
+}
+</style>
