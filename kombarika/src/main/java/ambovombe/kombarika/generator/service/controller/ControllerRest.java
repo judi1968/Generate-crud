@@ -82,14 +82,15 @@ public class ControllerRest{
 
     public String findAll(String table){
         String body = "";
-        body += Misc.tabulate(this.getCrudMethodRestController().getFindAll().replace("#object#", ObjectUtility.formatToCamelCase(table)));
-        String function =  this.getLanguageProperties().getMethodSyntax()
+        body += Misc.tabulate(this.getCrudMethodRestController().getFindAll()
+        .replace("className", ObjectUtility.formatToCamelCase(table))
+        .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));        String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "findAll")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", this.getLanguageProperties().getListSyntax().replace("?",ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))))
                 .replace("#arg#", "")
                 .replace("#body#", body);
         return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getGet()
-        .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+'"')) + "\n" + function);
+        .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"s"+'"')) + "\n" + function);
     }
 
     public String findById(String table) throws Exception{
