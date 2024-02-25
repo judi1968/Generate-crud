@@ -66,14 +66,18 @@ public class ControllerRest{
         String args = "";
         args += this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getAnnotationArgumentParameterFormData()) + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
-                + ObjectUtility.formatToCamelCase(table);
-        body += Misc.tabulate(this.getCrudMethodRestController().getDelete().replace("#object#", ObjectUtility.formatToCamelCase(table)));
+                + ObjectUtility.formatToCamelCase(table)
+                + ","
+                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
+        body += Misc.tabulate(
+            this.getCrudMethodRestController().getDelete().replace("className", table));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "delete")
-                .replace("#type#", "void")
+                .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
                 .replace("#body#", body);
-        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getDelete()) + "\n" + function);
+        return Misc.tabulate(this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getDelete()
+        .replace("classNameWithId", '"'+"/"+table+"/{id}"+'"')) + "\n" + function);
     }
 
     public String findAll(String table){
