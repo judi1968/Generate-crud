@@ -27,7 +27,7 @@ public class Test {
         CodeGenerator codeGenerator = new CodeGenerator();
         String path = "./";
         String framework = "java:spring-boot";
-        String packageName = "com.package.generate";
+        String packageName = "com.project.generate";
         String entity = "entity";
         String controller = "controller";
         String repository = "models";
