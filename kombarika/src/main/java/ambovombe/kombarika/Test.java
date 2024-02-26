@@ -31,7 +31,7 @@ public class Test {
         String packageName = "com.project.generate";
         String entity = "entity";
         String controller = "controller";
-        String repository = "models";
+        String repository = "repository";
         String view = "view";
         String url = "http://localhost:8080";
         try{

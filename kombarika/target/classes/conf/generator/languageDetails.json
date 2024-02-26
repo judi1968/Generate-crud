@@ -119,7 +119,8 @@
                     },
                     "importsControllerRest" : {
                         "controllerRest":[
-                            "packageName.className",
+                            "packageName.classNameRepository",
+                            "entity.className",
                             "org.springframework.http.*",
                             "org.springframework.beans.factory.annotation.Autowired",
                             "org.springframework.web.bind.annotation.*",
@@ -172,8 +173,7 @@
                     "crudMethod" : {
                         "findAll": "return ResponseEntity.ok(repository.findAll());",
                         "findById":"return ResponseEntity.ok(repository.findById(#Id#));",
-                        "delete": "
-                        repository.delete(#object#);",
+                        "delete": "repository.delete(#object#);",
                         "update": "return ResponseEntity.ok(repository.save(#object#));",
                         "save": "return ResponseEntity.ok(repository.save(#object#));"
                     },

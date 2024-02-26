@@ -1,6 +1,5 @@
 package ambovombe.kombarika.generator.service.controller;
 
-import ambovombe.kombarika.configuration.mapping.LanguageProperties;
 import ambovombe.kombarika.configuration.mapping.*;
 import ambovombe.kombarika.generator.service.GeneratorService;
 import ambovombe.kombarika.generator.utils.ObjectUtility;
@@ -146,7 +145,7 @@ public class ControllerRest{
         res += this.getLanguageProperties().getAnnotationSyntax()
                 .replace("?", this.getAnnotationPropertyControllerRest().getControllerRest()) + "\n"
                 + this.getLanguageProperties().getClassSyntax() + " "
-                + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table).concat("ControllerRest")) + "\n";
+                + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table).concat("RestController")) + "\n";
         return res;
     }
 
@@ -178,7 +177,7 @@ public class ControllerRest{
                 .replace("#class#", getControllerRestClass(table))
                 .replace("#open-bracket#", languageProperties.getOpenBracket())
                 .replace("#close-bracket#", languageProperties.getCloseBracket())
-                .replace("#fields#", " ")
+                .replace("#fields#", getControllerRestField(table))
                 .replace("#constructors#", getConstructor(table))
                 .replace("#methods#", getCrudMethodRestControllers(table))
                 .replace("#encapsulation#", "");
