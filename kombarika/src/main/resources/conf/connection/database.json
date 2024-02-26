@@ -2,7 +2,7 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/generateur_code",
+            "datasource":"jdbc:postgresql://localhost:5432/district",
             "username":"postgres",
             "password":"mdpprom15",
             "databaseType":"POSTGRESQL"
