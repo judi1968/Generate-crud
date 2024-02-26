@@ -141,6 +141,8 @@ public class CodeGenerator {
         String directory
     ) throws Exception{
         String mainSpring = buildMainSpring(packageName);
+        directory= directory+"."+packageName;
+        directory = directory.replace(".", File.separator);
         String path = "./";
         FileUtility.createDirectory(directory,path);
         path = path + File.separator + directory;

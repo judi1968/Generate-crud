@@ -35,6 +35,8 @@ start mvn exec:java
 pause
 set "dossierJavaGenerateFront=%dossierExcecution%\result_FrontEnd"
 set "dossierJavaGenerateBack=%dossierExcecution%\result_BackEnd"
+set "dossierJavaGenerateUtil=%dossierExcecution%\springUtil"
+
 
 set "dossierSpringBoot=%dossierExcecution%\spring_boot_result"
 set "dossierJavaSpringBoot=%dossierSpringBoot%\src\main\java"
@@ -45,6 +47,7 @@ echo %dossierJavaSpringBoot%
 
 @REM copie de back-end dans de dossier qu'il  fallait
 xcopy /s /e /y /i "%dossierJavaGenerateBack%" "%dossierJavaSpringBoot%"
+xcopy "%dossierJavaGenerateUtil%"
 @echo off
 cd /d %dossierSpringBoot%
 start mvn spring-boot:run
