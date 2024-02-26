@@ -5,6 +5,7 @@
 package ambovombe.kombarika.generator;
 
 import ambovombe.kombarika.configuration.main.LanguageDetails;
+import ambovombe.kombarika.configuration.main.MainSpringDetails;
 import ambovombe.kombarika.configuration.main.TypeProperties;
 import ambovombe.kombarika.configuration.main.ViewDetails;
 import ambovombe.kombarika.configuration.main.ViewVueJsDetails;
@@ -17,6 +18,7 @@ import ambovombe.kombarika.generator.service.controller.Controller;
 import ambovombe.kombarika.generator.service.controller.ControllerRest;
 import ambovombe.kombarika.generator.service.entity.Entity;
 import ambovombe.kombarika.generator.service.repository.Repository;
+import ambovombe.kombarika.generator.service.springUtils.MainSpring;
 import ambovombe.kombarika.generator.service.view.View;
 import ambovombe.kombarika.generator.service.view.ViewVueJs;
 import lombok.Getter;
@@ -36,6 +38,7 @@ public class CodeGenerator {
     TypeProperties typeProperties;
     ViewDetails viewDetails;
     ViewVueJsDetails viewVueJsDetails;
+    MainSpringDetails mainSpringDetails;
 
 
     public CodeGenerator() throws Exception {
@@ -49,6 +52,8 @@ public class CodeGenerator {
         this.viewDetails.init();
         this.viewVueJsDetails = new ViewVueJsDetails();
         this.viewVueJsDetails.init();
+        this.mainSpringDetails = new MainSpringDetails();
+        this.mainSpringDetails.init();
     }
 
     public  void generateEntity(
@@ -128,6 +133,19 @@ public class CodeGenerator {
         path = path + File.separator + directory;
         String fileName = GeneratorService.getFileName(table, "vue");
         FileUtility.generateFile(path, fileName, view);
+    }
+
+    // generate main
+    public void generateMainSpring(
+        String packageName,
+        String directory
+    ) throws Exception{
+        String mainSpring = buildMainSpring(packageName);
+        String path = "./";
+        FileUtility.createDirectory(directory,path);
+        path = path + File.separator + directory;
+        String fileName = GeneratorService.getFileName("TestApplication", "java");
+        FileUtility.generateFile(path, fileName, mainSpring);
     }
 
     /**
@@ -261,6 +279,12 @@ public class CodeGenerator {
         view.setViewVueJsDetails(this.getViewVueJsDetails());
         return view.generateViewVueJs(table, url, dbConnection);
     }
+
+    public String buildMainSpring(String packageName) throws Exception{
+        MainSpring mainSpring = new MainSpring();
+        mainSpring.setMainSpringDetails(this.getMainSpringDetails());
+        return mainSpring.generateMainSpring(packageName);
+    }
     // public static String getTemplate() throws Exception{
     //     String path = Misc.getSourceTemplateLocation() + File.separator + "Template.code";
     //     return FileUtility.readOneFile(path);
@@ -276,8 +300,10 @@ public class CodeGenerator {
         String view,
         String url,
         String[] tables, 
-        String framework
+        String framework,
+        String springUtil
     ) throws Exception{
+        generateMainSpring(packageName,springUtil); 
         for (String table : tables) {
             generateEntity(pathBack, table, packageName + "." + entity, framework);
             generateRepository(pathBack, table, packageName + "." + repository, packageName + "." + entity, framework);

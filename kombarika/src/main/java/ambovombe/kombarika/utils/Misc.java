@@ -25,6 +25,10 @@ public class Misc {
         return getTemplateLocation() + File.separator + "view";
     }
 
+    public static String getSpringUtilsTemplateLocation(){
+        return getTemplateLocation() + File.separator + "springUtils";
+    }
+
     public static String getConfigLocation(){
         return currentLocation("conf");
     }
