@@ -305,11 +305,11 @@ public class CodeGenerator {
         String framework,
         String springUtil
     ) throws Exception{
-        generateMainSpring(packageName,springUtil); 
+        generateMainSpring(packageName,pathBack); 
         for (String table : tables) {
             generateEntity(pathBack, table, packageName + "." + entity, framework);
             generateRepository(pathBack, table, packageName + "." + repository, packageName + "." + entity, framework);
-            generateController(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
+            //generateController(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateControllerRest(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateView(pathFront, table, view, url); 
             generateVueJs(pathFront, table, view, url); 

@@ -47,7 +47,7 @@ echo %dossierJavaSpringBoot%
 
 @REM copie de back-end dans de dossier qu'il  fallait
 xcopy /s /e /y /i "%dossierJavaGenerateBack%" "%dossierJavaSpringBoot%"
-xcopy "%dossierJavaGenerateUtil%"
+@REM xcopy "%dossierJavaGenerateUtil%"
 @echo off
 cd /d %dossierSpringBoot%
 start mvn spring-boot:run
