@@ -48,7 +48,7 @@ public class ControllerRest{
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table)
                 + ","
-                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
+                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
         body += Misc.tabulate(
             this.getCrudMethodRestController().getUpdate().replace("className",ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
