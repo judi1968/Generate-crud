@@ -25,7 +25,8 @@ public class Test {
      
     public static void main(String[] args) throws Exception {
         CodeGenerator codeGenerator = new CodeGenerator();
-        String path = "./";
+        String pathBack = "./result_BackEnd";
+        String pathFront = "./result_FrontEnd";
         String framework = "java:spring-boot";
         String packageName = "com.project.generate";
         String entity = "entity";
@@ -46,7 +47,7 @@ public class Test {
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             // for(String table: tables)
             //     System.out.println(table);
-            codeGenerator.generateAll(path, packageName, entity, controller, repository, view, url, tables, framework);
+            codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, url, tables, framework);
             
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
         }catch(Exception e){

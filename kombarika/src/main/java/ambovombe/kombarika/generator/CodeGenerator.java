@@ -267,7 +267,8 @@ public class CodeGenerator {
     // }
     
     public void generateAll(
-        String path, 
+        String pathBack, 
+        String pathFront,
         String packageName, 
         String entity, 
         String controller, 
@@ -278,12 +279,12 @@ public class CodeGenerator {
         String framework
     ) throws Exception{
         for (String table : tables) {
-            generateEntity(path, table, packageName + "." + entity, framework);
-            generateRepository(path, table, packageName + "." + repository, packageName + "." + entity, framework);
-            generateController(path, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
-            generateControllerRest(path, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
-            generateView(path, table, view, url); 
-            generateVueJs(path, table, view, url); 
+            generateEntity(pathBack, table, packageName + "." + entity, framework);
+            generateRepository(pathBack, table, packageName + "." + repository, packageName + "." + entity, framework);
+            generateController(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
+            generateControllerRest(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
+            generateView(pathFront, table, view, url); 
+            generateVueJs(pathFront, table, view, url); 
         }
     }
 
