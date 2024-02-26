@@ -12,17 +12,10 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.HashMap;
 
-/**
- *
- * @author Judi
- */
+
 public class Test {
 
-    /**
-     * @param args the command line arguments
-     * @throws SQLException
-     */
-
+ 
     public static void main(String[] args) throws Exception {
         CodeGenerator codeGenerator = new CodeGenerator();
         String path = "./";
