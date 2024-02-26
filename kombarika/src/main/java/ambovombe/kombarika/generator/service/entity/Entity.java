@@ -69,15 +69,14 @@ public class Entity {
     public String getEntityField(HashMap<String, String> columns, HashMap<String, String> foreignKeys ,List<String> primaryKeys){
         String res = "";
 
-        for (Map.Entry<String, String> set : columns.entrySet()) {
+        for (Map.Entry<String, String> set : columns.entrySet()){
             if (primaryKeys.contains(set.getKey())) {
                 res += "\t"
                         + this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getAnnotationProperty().getConstraints().getPrimaryKey()) + "\n";
                 if(set.getValue().equals("Integer") && !this.getAnnotationProperty().getAutoIncrement().equals("")){
                     res += "\t"
                         + this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getAnnotationProperty().getAutoIncrement()) + "\n";
-                    
-                }
+               }
             }
             String temp = foreignKeys.get(set.getKey());
             if(temp != null){

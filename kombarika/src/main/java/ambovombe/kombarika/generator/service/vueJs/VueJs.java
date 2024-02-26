@@ -18,18 +18,37 @@ public class VueJs {
         String path = ObjectUtility.formatToCamelCase(table);
         HashMap<String, String> columns = DbService.getDetailsColumn(dbConnection.getConnection(), table);
         HashMap<String, String> foreignkeys = DbService.getForeignKeys(dbConnection, table);
+        HashMap<String, String> combinedMap = new HashMap<>();
+
+        for (Map.Entry<String, String> entry : columns.entrySet()) {
+            if (!foreignkeys.containsKey(entry.getKey())) {
+                combinedMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+        for (Map.Entry<String, String> entry : foreignkeys.entrySet()) {
+            String columnName = entry.getKey();
+            String foreignKeyTable = entry.getValue();
+
+            if (columns.containsKey(columnName)) {
+                combinedMap.put(foreignKeyTable, columnName);
+            }
+        }
+
+        for (Map.Entry<String, String> entry : combinedMap.entrySet()) {
+            System.out.println("Key: " + entry.getKey());
+        }
 
         res = template.replace("#table#", table)
                 .replace("#API#", API)
                 .replace("#path#", path)
-                .replace("#column-title#", generateColumnTitle(columns))
-                .replace("#column-row#", generateColumnRows(columns))
-                .replace("#column-add#", generateColumnAdd(columns))
-                .replace("#column-edit#", generateColumnEdit(columns))
+                .replace("#column-title#", generateColumnTitle(combinedMap))
+                .replace("#column-row#", generateColumnRows(combinedMap))
+                .replace("#column-add#", generateColumnAdd(columns, foreignkeys))
+                .replace("#column-edit#", generateColumnEdit(columns, foreignkeys))
                 .replace("#ListeFK#", generateListeFK(foreignkeys))
-                .replace("#column#", generateColumn(columns))
-                .replace("#api-add-column#", generateApiAddColumn(columns))
-                .replace("#api-update-column#", generateApiUpdateColumn(columns))
+                .replace("#column#", generateColumn(combinedMap))
+                .replace("#api-add-column#", generateApiAddColumn(combinedMap))
+                .replace("#api-update-column#", generateApiUpdateColumn(combinedMap))
                 .replace("#mounted-api-FK#", generateMountedApiFK(foreignkeys))
                 .replace("#api-FK#", generateApiFK(foreignkeys, API));
         return res;
@@ -46,10 +65,10 @@ public class VueJs {
     private static String generateListeFK(HashMap<String, String> foreignKeys) {
         StringBuilder fkBuilder = new StringBuilder();
         for (String fk : foreignKeys.keySet()) {
-            String fkWithoutId = fk.substring(2); // Supprimer les deux premiers caractères "id"
+            String fkWithoutId = foreignKeys.get(fk); // Supprimer les deux premiers caractères "id"
             String fkCamelCase = ObjectUtility.formatToCamelCase(fkWithoutId); // Convertir en camelCase si nécessaire
             String relatedTable = foreignKeys.get(fk);
-            fkBuilder.append(fkCamelCase).append(": [],").append("\n\t\t\t");
+            fkBuilder.append("liste").append(fkCamelCase).append(": [],").append("\n\t\t\t");
         }
         return fkBuilder.toString();
     }
@@ -71,19 +90,68 @@ public class VueJs {
         return columnBuilder.toString();
     }
 
-    private static String generateColumnAdd(HashMap<String, String> columns) {
+    private static String generateColumnAdd(HashMap<String, String> columns, HashMap<String, String> foreignKeys) {
         StringBuilder addBuilder = new StringBuilder();
         for (String columnName : columns.keySet()) {
-            addBuilder.append("<div class=\"mb-3\">")
-                    .append("<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
-                    .append("\" class=\"form-label\">")
-                    .append(columnName).append("</label>")
-                    .append("<input type=\"text\" class=\"form-control\" id=\"")
-                    .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"")
-                    .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
-                    .append("</div>\n\t\t\t\t\t\t");
+            if (foreignKeys.containsKey(columnName)) {
+                addBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
+                        .append("\n\t\t\t\t\t\t\t<label for=\"").append(foreignKeys.get(columnName))
+                        .append("\" class=\"form-label\">")
+                        .append(foreignKeys.get(columnName)).append("</label>")
+
+                        .append("\n\t\t\t\t\t\t\t<select class=\"form-control\" id=\"")
+                        .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\" v-model=\"")
+                        .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\">")
+                        .append("\n\t\t\t\t\t\t\t\t<option v-for=\"(option, index) in liste")
+                        .append(foreignKeys.get(columnName))
+                        .append("\" :key=\"index\" :value=\"option.id\">{{ option.id }}</option>")
+                        .append("\n\t\t\t\t\t\t\t</select>")
+                        .append("\n\t\t\t\t\t\t</div>");
+            } else {
+                // Si ce n'est pas une clé étrangère, générer un champ de texte
+                addBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
+                        .append("\n\t\t\t\t\t\t\t<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
+                        .append("\" class=\"form-label\">")
+                        .append(foreignKeys.get(columnName)).append("</label>")
+                        .append("\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"")
+                        .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"")
+                        .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
+                        .append("\n\t\t\t\t\t\t</div>");
+            }
         }
         return addBuilder.toString();
+    }
+
+    private static String generateColumnEdit(HashMap<String, String> columns, HashMap<String, String> foreignKeys) {
+        StringBuilder editBuilder = new StringBuilder();
+        for (String columnName : columns.keySet()) {
+            if (foreignKeys.containsKey(columnName)) {
+                editBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
+                        .append("\n\t\t\t\t\t\t\t<label for=\"").append(foreignKeys.get(columnName))
+                        .append("\" class=\"form-label\">")
+                        .append(columnName).append("</label>")
+
+                        .append("\n\t\t\t\t\t\t\t<select class=\"form-control\" id=\"")
+                        .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\" v-model=\"selectedItem.")
+                        .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\">")
+                        .append("\n\t\t\t\t\t\t\t\t<option v-for=\"(option, index) in liste")
+                        .append(foreignKeys.get(columnName))
+                        .append("\" :key=\"index\" :value=\"option.id\">{{ option.id }}</option>")
+                        .append("\n\t\t\t\t\t\t\t</select>")
+                        .append("\n\t\t\t\t\t\t</div>");
+            }else {
+                // Si ce n'est pas une clé étrangère, générer un champ de texte
+                editBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
+                        .append("\n\t\t\t\t\t\t\t<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
+                        .append("\" class=\"form-label\">")
+                        .append(columnName).append("</label>")
+                        .append("\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"")
+                        .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"selectedItem.")
+                        .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
+                        .append("\n\t\t\t\t\t\t</div>");
+            }
+        }
+        return editBuilder.toString();
     }
 
     private static String generateApiUpdateColumn(HashMap<String, String> columns) {
@@ -92,6 +160,7 @@ public class VueJs {
             updateColumnBuilder.append(ObjectUtility.formatToCamelCase(columnName)).append(": this.selectedItem.")
                     .append(ObjectUtility.formatToCamelCase(columnName)).append(",\n\t\t\t\t");
         }
+
         return updateColumnBuilder.toString();
     }
 
@@ -134,27 +203,12 @@ public class VueJs {
         return fkMethodBuilder.toString();
     }
 
-    private static String generateColumnEdit(HashMap<String, String> columns) {
-        StringBuilder editBuilder = new StringBuilder();
-        for (String columnName : columns.keySet()) {
-            editBuilder.append("<div class=\"mb-3\">")
-                    .append("<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
-                    .append("\" class=\"form-label\">")
-                    .append(columnName).append("</label>")
-                    .append("<input type=\"text\" class=\"form-control\" id=\"")
-                    .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"selectedItem.")
-                    .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
-                    .append("</div>\n\t\t\t\t\t\t");
-        }
-        return editBuilder.toString();
-    }
-
     public static void generateAllViews(String[] tables, String API, DbConnection dbConnection)
             throws Exception {
         for (String table : tables) {
             String viewContent = generateView(table, API, "./Kombarika/src/main/resources/template/VueJs/Page.template",
                     dbConnection);
-            String fileName = ObjectUtility.formatToCamelCase(table) + ".vue";
+            String fileName = ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + ".vue";
             FileUtility.createDirectory("Vue", "./");
             String path = "./Vue";
             FileUtility.generateFile(path, fileName, viewContent);

@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in Liste" :key="index" @click="selectItem(item)">
+                        <tr v-for="(item, index) in liste" :key="index" @click="selectItem(item)">
                             <th scope="row">{{ index + 1 }}</th>
                              #column-row# 
                             <td>
@@ -108,7 +108,7 @@ export default {
         return {
             #column#
             #ListeFK#
-            Liste: [],
+            liste: [],
             selectedItem: {},
         };
     },
@@ -124,7 +124,7 @@ export default {
                 if (!response.ok) {
                     throw new Error('Erreur de réseau');
                 }
-                this.Liste = await response.json();
+                this.liste = await response.json();
             } catch (error) {
                 console.error('Erreur lors de la récupération de l\'élément:', error);
             }
