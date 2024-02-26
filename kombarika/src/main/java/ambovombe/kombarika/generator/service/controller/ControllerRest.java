@@ -67,7 +67,7 @@ public class ControllerRest{
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table)
                 + ","
-                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
+                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
         body += Misc.tabulate(
             this.getCrudMethodRestController().getDelete().replace("className", ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
@@ -95,7 +95,7 @@ public class ControllerRest{
     public String findById(String table) throws Exception{
         String body = "";   
         String args = "";
-        args += this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " String id";
+        args += this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
         body += Misc.tabulate(
             this.getCrudMethodRestController().getFindById()
                 .replace("className", ObjectUtility.formatToCamelCase(table))
