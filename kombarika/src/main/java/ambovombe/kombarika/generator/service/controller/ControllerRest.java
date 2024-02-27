@@ -63,13 +63,11 @@ public class ControllerRest{
     public String delete(String table) throws Exception{
         String body = "";   
         String args = "";
-        args += this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getAnnotationArgumentParameterFormData()) + " "
-                + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
-                + ObjectUtility.formatToCamelCase(table)
-                + ","
-                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
+        args +=  this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
         body += Misc.tabulate(
-            this.getCrudMethodRestController().getDelete().replace("className", ObjectUtility.formatToCamelCase(table)));
+            this.getCrudMethodRestController().getDelete()
+                .replace("className", ObjectUtility.formatToCamelCase(table)))
+                .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "delete")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))

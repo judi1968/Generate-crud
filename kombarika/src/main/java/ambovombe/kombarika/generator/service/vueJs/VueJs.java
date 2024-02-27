@@ -59,7 +59,7 @@ public class VueJs {
     private static String generateColumnTitle(HashMap<String, String> columns) {
         StringBuilder titleBuilder = new StringBuilder();
         for (String columnName : columns.keySet()) {
-            titleBuilder.append("<th scope=\"col\">").append(columnName).append("</th>\n\t\t\t\t\t\t\t");
+            titleBuilder.append("<th scope=\"col\">").append(ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(columnName.replace("_", " ")))).append("</th>\n\t\t\t\t\t\t\t");
         }
         return titleBuilder.toString();
     }
@@ -114,7 +114,7 @@ public class VueJs {
                 addBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
                         .append("\n\t\t\t\t\t\t\t<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
                         .append("\" class=\"form-label\">")
-                        .append(columnName.replace("_", " ")).append("</label>")
+                        .append(ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(columnName.replace("_", " ")))).append("</label>")
                         .append("\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"")
                         .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"")
                         .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")

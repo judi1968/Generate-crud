@@ -87,7 +87,7 @@
                 <center>
                     <p style="padding: 20px 0px;">etes vous sure de vouloir supprimer cet element ?</p>
                 </center>
-                <button type="submit" class="btn-choice btn btn-primary">oui</button>
+                <button @click="deleteElement()" class="btn-choice btn btn-primary">oui</button>
                 <button type="button" class="btn-choice btn btn-danger" data-bs-dismiss="modal">non</button>
             </div>
         </div>
@@ -168,9 +168,9 @@ export default {
                 console.error('Erreur lors de la modification de l\'élément:', error);
             }
         },
-        async deleteElement(id) {
+        async deleteElement() {
             try {
-                const response = await fetch(`#API#/#table#/${id}`, {
+                const response = await fetch(`#API#/#table#/${this.selectedItem.id}`, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {
