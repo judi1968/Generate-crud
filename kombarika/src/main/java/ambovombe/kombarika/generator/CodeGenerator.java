@@ -312,7 +312,7 @@ public class CodeGenerator {
             //generateController(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateControllerRest(pathBack, table, packageName + "." + controller, packageName + "." + repository, packageName + "." + "entity", framework);  
             generateView(pathFront, table, view, url); 
-            generateVueJs(pathFront, table, view, url); 
+            //generateVueJs(pathFront, table, view, url); 
         }
     }
 

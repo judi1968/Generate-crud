@@ -1,23 +1,24 @@
 <template>
-    <div class="container mt-5">
+    <SideBar />
+    <div class="container" style="margin-left:350px;">
         <div class="row">
             <div class="col">
-                <button type="button" class="ajoute btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button style="margin-top: 70px;" type="button" class="ajoute btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Ajouter
                 </button>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            #column-title# <!-- <th scope="col">Action</th>-->
+                            #column-title# 
                             <th scope="col">Action</th>
                             <th>mofifier</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in Liste" :key="index" @click="selectItem(item)">
+                        <tr v-for="(item, index) in liste" :key="index" @click="selectItem(item)">
                             <th scope="row">{{ index + 1 }}</th>
-                             #column-row# <!-- <td>{{ item.temperatureF }}</td> -->
+                             #column-row# 
                             <td>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#editModal"
                                     class="btn btn-primary btn-sm">Modifier</button>
@@ -45,11 +46,6 @@
                         <form @submit.prevent="submitForm">
                             
                             #column-add#
-                            <!-- <div class="mb-3">
-                                <label for="inputNom" class="form-label">TemperatureF</label>
-                                <input type="text" class="form-control" id="inputNom" v-model="TemperatureF">
-                            </div> -->
-
                             <button type="submit" class="btn btn-primary">Ajouter</button>
                         </form>
                     </div>
@@ -71,10 +67,6 @@
                 <div class="modal-body">
                     <form @submit.prevent="submitForm">
                         #column-edit#
-                        <!-- <div class="mb-3">
-                            <label for="inputAge" class="form-label">summary</label>
-                            <input type="text" class="form-control" id="inputAge" v-model="selectedItem.summary">
-                        </div> -->
                         <button type="submit" class="btn btn-primary" style="width: ;: =100%;">Modifier</button>
                     </form>
                 </div>
@@ -103,29 +95,38 @@
 </template>
 
 <script>
+import SideBar from "./SideBar.vue"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 export default {
+    name: "#table#",
+    components:{
+        SideBar
+    },
     data() {
         return {
-            Liste: [],
+            #column#
+            #ListeFK#
+            liste: [],
             selectedItem: {},
         };
     },
     mounted() {
         this.findAll();
+        #mounted-api-FK#
     },
     methods: {
+        #api-FK#
         async findAll() {
             try {
                 const response = await fetch('#API#/#table#');
                 if (!response.ok) {
                     throw new Error('Erreur de réseau');
                 }
-                this.Liste = await response.json();
+                this.liste = await response.json();
             } catch (error) {
-                console.error('Erreur lors de la récupération des personnes:', error);
+                console.error('Erreur lors de la récupération de l\'élément:', error);
             }
         },
         async addElement() {
@@ -136,9 +137,7 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        temperatureF: this.TemperatureF,
-                        temperatureC: this.TemperatureC,
-                        summary: this.summary
+                        #api-add-column#
                     })
                 });
                 if (!response.ok) {
@@ -157,9 +156,7 @@ export default {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        temperatureF: this.selectedItem.temperatureF,
-                        temperatureC: this.selectedItem.temperatureC,
-                        summary: this.selectedItem.summary
+                        #api-update-column#
                     })
                 });
                 if (!response.ok) {

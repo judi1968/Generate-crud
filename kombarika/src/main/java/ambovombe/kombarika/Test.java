@@ -7,6 +7,8 @@ package ambovombe.kombarika;
 import ambovombe.kombarika.database.DbConnection;
 import ambovombe.kombarika.generator.CodeGenerator;
 import ambovombe.kombarika.generator.service.DbService;
+import ambovombe.kombarika.generator.service.vueJs.SideBar;
+import ambovombe.kombarika.generator.service.vueJs.VueJs;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -34,6 +36,7 @@ public class Test {
         String repository = "repository";
         String view = "view";
         String url = "http://localhost:8080";
+        String urlView = "http://localhost:5289";
         String springUtil = "springUtil";
         try{
             // String[] tables = {"district","region"};
@@ -49,7 +52,8 @@ public class Test {
             // for(String table: tables)
             //     System.out.println(table);
             codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, url, tables, framework,springUtil);
-            
+            VueJs.generateAllViews(tables, urlView, codeGenerator.getDbConnection());
+            SideBar.generateSideBar(tables);
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
         }catch(Exception e){
             e.printStackTrace();
