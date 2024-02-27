@@ -9,6 +9,7 @@ import ambovombe.kombarika.generator.CodeGenerator;
 import ambovombe.kombarika.generator.service.DbService;
 import ambovombe.kombarika.generator.service.vueJs.SideBar;
 import ambovombe.kombarika.generator.service.vueJs.VueJs;
+import ambovombe.kombarika.generator.service.vueJs.Router;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -53,6 +54,7 @@ public class Test {
             codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, url, tables, framework,springUtil);
             VueJs.generateAllViews(tables, url, codeGenerator.getDbConnection());
             SideBar.generateSideBar(tables);
+            Router.generateRouter(tables);
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
         }catch(Exception e){
             e.printStackTrace();
