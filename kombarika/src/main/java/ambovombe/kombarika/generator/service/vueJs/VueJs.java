@@ -114,11 +114,12 @@ public class VueJs {
                 addBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
                         .append("\n\t\t\t\t\t\t\t<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
                         .append("\" class=\"form-label\">")
-                        .append(foreignKeys.get(columnName)).append("</label>")
+                        .append(columnName.replace("_", " ")).append("</label>")
                         .append("\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"")
                         .append(ObjectUtility.formatToCamelCase(columnName)).append("\" v-model=\"")
                         .append(ObjectUtility.formatToCamelCase(columnName)).append("\">")
                         .append("\n\t\t\t\t\t\t</div>");
+                        System.out.println(columnName);
             }
         }
         return addBuilder.toString();
