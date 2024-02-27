@@ -68,7 +68,7 @@ public class VueJs {
         StringBuilder fkBuilder = new StringBuilder();
         for (String fk : foreignKeys.keySet()) {
             String fkWithoutId = foreignKeys.get(fk); // Supprimer les deux premiers caractères "id"
-            String fkCamelCase = ObjectUtility.formatToCamelCase(fkWithoutId); // Convertir en camelCase si nécessaire
+            String fkCamelCase = ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(fkWithoutId)); // Convertir en camelCase si nécessaire
             String relatedTable = foreignKeys.get(fk);
             fkBuilder.append("liste").append(fkCamelCase).append(": [],").append("\n\t\t\t");
         }
@@ -105,7 +105,7 @@ public class VueJs {
                         .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\" v-model=\"")
                         .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\">")
                         .append("\n\t\t\t\t\t\t\t\t<option v-for=\"(option, index) in liste")
-                        .append(foreignKeys.get(columnName))
+                        .append(ObjectUtility.capitalize(foreignKeys.get(columnName)))
                         .append("\" :key=\"index\" :value=\"option.id\">{{ option.id }}</option>")
                         .append("\n\t\t\t\t\t\t\t</select>")
                         .append("\n\t\t\t\t\t\t</div>");
@@ -138,7 +138,7 @@ public class VueJs {
                         .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\" v-model=\"selectedItem.")
                         .append(ObjectUtility.formatToCamelCase(foreignKeys.get(columnName))).append("\">")
                         .append("\n\t\t\t\t\t\t\t\t<option v-for=\"(option, index) in liste")
-                        .append(foreignKeys.get(columnName))
+                        .append(ObjectUtility.capitalize(foreignKeys.get(columnName)))
                         .append("\" :key=\"index\" :value=\"option.id\">{{ option.id }}</option>")
                         .append("\n\t\t\t\t\t\t\t</select>")
                         .append("\n\t\t\t\t\t\t</div>");
@@ -192,12 +192,12 @@ public class VueJs {
             String relatedTable = foreignKeys.get(fk);
             fkMethodBuilder.append("async findAll").append(fkCamelCase).append("() {\n");
             fkMethodBuilder.append("\t\t\ttry {\n");
-            fkMethodBuilder.append("\t\t\t\tconst response = await fetch('").append(api + "/").append(relatedTable)
-                    .append("');\n");
+            fkMethodBuilder.append("\t\t\t\tconst response = await fetch('").append(api + "/").append(relatedTable).append("s").append("');\n");
             fkMethodBuilder.append("\t\t\t\tif (!response.ok) {\n");
             fkMethodBuilder.append("\t\t\t\t\tthrow new Error('Erreur de réseau');\n");
             fkMethodBuilder.append("\t\t\t\t}\n");
-            fkMethodBuilder.append("\t\t\t\tthis.liste").append(fkCamelCase).append(" = await response.json();\n");
+            fkMethodBuilder.append("\t\t\t\tthis.liste").append(ObjectUtility.capitalize(fkCamelCase)).append(" = await response.json();\n");
+            fkMethodBuilder.append("\t\t\t\tthis.liste#classFk# = this.liste#classFk#.data.body;".replace("#classFk#",ObjectUtility.capitalize(fkCamelCase) ));
             fkMethodBuilder.append("\t\t\t\t} catch (error) {\n");
             fkMethodBuilder.append("\t\t\t\t\tconsole.error('Erreur lors de la récupération :', error);\n");
             fkMethodBuilder.append("\t\t\t}\n");
