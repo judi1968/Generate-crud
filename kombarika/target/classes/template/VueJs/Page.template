@@ -120,11 +120,12 @@ export default {
         #api-FK#
         async findAll() {
             try {
-                const response = await fetch('#API#/#table#');
+                const response = await fetch('#API#/#table#s');
                 if (!response.ok) {
                     throw new Error('Erreur de réseau');
                 }
                 this.liste = await response.json();
+                this.liste = this.liste.data.body;
             } catch (error) {
                 console.error('Erreur lors de la récupération de l\'élément:', error);
             }
