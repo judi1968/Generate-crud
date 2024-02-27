@@ -126,6 +126,7 @@ public class VueJs {
                             .append("\n\t\t\t\t\t\t\t</select>")
                             .append("\n\t\t\t\t\t\t</div>");
                 } else {
+                    // Si ce n'est pas une clé étrangère, générer un champ de texte
                     addBuilder.append("\n\t\t\t\t\t\t<div class=\"mb-3\">")
                             .append("\n\t\t\t\t\t\t\t<label for=\"").append(ObjectUtility.formatToCamelCase(columnName))
                             .append("\" class=\"form-label\">")
