@@ -1,6 +1,12 @@
 package ambovombe.kombarika.generator.service.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import ambovombe.kombarika.configuration.mapping.*;
+import ambovombe.kombarika.database.DbConnection;
+import ambovombe.kombarika.generator.service.DbService;
 import ambovombe.kombarika.generator.service.GeneratorService;
 import ambovombe.kombarika.generator.utils.ObjectUtility;
 import ambovombe.kombarika.utils.Misc;
@@ -14,6 +20,8 @@ public class ControllerRest{
     ControllerRestProperty controllerRestProperty;
     AnnotationPropertyControllerRest annotationPropertyControllerRest;
     ImportsControllerRest importsControllerRest;
+    DbConnection dbConnection;
+    TypeMapping typeMapping;
 
     /**
      * Generate the function that make the insert to the database
@@ -40,18 +48,38 @@ public class ControllerRest{
                             .replace("?", this.getControllerRestProperty().getPost()
                                 .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+'"')) + "\n" + function);
     }
+    
+    public String getArgPrimaryKey(HashMap<String, String> columns,List<String> primaryKeys){
+        String res = "";
 
-    public String update(String table) throws Exception{
+        for (Map.Entry<String, String> set : columns.entrySet()) {
+            if (primaryKeys.contains(set.getKey())) {
+                res +=
+                this.getLanguageProperties().getFieldSyntax()
+                    .replace("Type", typeMapping.getListMapping().get(set.getValue()).getType())
+                    .replace("field", ObjectUtility.formatToCamelCase(set.getKey()));
+                break;
+            }
+            
+        }
+        return res.replace(";", "");
+    }
+    public String update(HashMap<String, String> columns,List<String> primaryKeys,String table) throws Exception{
         String body = "";
         String args = "";
+        String primaryKeyArgs = getArgPrimaryKey(columns, primaryKeys);
+        String primmaryKeyName = primaryKeyArgs.split(" ")[1];
         args += this.getLanguageProperties().getAnnotationSyntax().replace("?", this.getControllerRestProperty().getAnnotationArgumentParameterFormData()) + " "
                 + ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)) + " "
                 + ObjectUtility.formatToCamelCase(table)
                 + ","
-                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
+                + this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " "+primaryKeyArgs;
         body += Misc.tabulate(
-            this.getCrudMethodRestController().getUpdate().replace("className",ObjectUtility.formatToCamelCase(table)));
-        String function =  this.getLanguageProperties().getMethodSyntax()
+            this.getCrudMethodRestController().getUpdate()
+            .replace("className",ObjectUtility.formatToCamelCase(table)))
+            .replace("#primaryKeyArgSetter#",ObjectUtility.capitalize(primmaryKeyName))
+            .replace("#primaryKeyArg#",ObjectUtility.formatToCamelCase(primmaryKeyName));
+            String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "update")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
@@ -60,15 +88,20 @@ public class ControllerRest{
         .replace("classNameWithId", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"/{id}"+'"')) + "\n" + function);
     }
 
-    public String delete(String table) throws Exception{
+    public String delete(HashMap<String, String> columns,List<String> primaryKeys,String table) throws Exception{
         String body = "";   
         String args = "";
-        args +=  this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
+        String primaryKeyArgs = getArgPrimaryKey(columns, primaryKeys);
+        String primmaryKeyName = primaryKeyArgs.split(" ")[1];
+        args +=  this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " "+primaryKeyArgs;
         body += Misc.tabulate(
             this.getCrudMethodRestController().getDelete()
                 .replace("className", ObjectUtility.formatToCamelCase(table)))
-                .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)));
-        String function =  this.getLanguageProperties().getMethodSyntax()
+                .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))
+                .replace("#primaryKeyArgSetter#",ObjectUtility.capitalize(primmaryKeyName))
+                .replace("#primaryKeyArg#",ObjectUtility.formatToCamelCase(primmaryKeyName));
+                
+                String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "delete")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))))
                 .replace("#arg#", args)
@@ -81,7 +114,8 @@ public class ControllerRest{
         String body = "";
         body += Misc.tabulate(this.getCrudMethodRestController().getFindAll()
         .replace("className", ObjectUtility.formatToCamelCase(table))
-        .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));        String function =  this.getLanguageProperties().getMethodSyntax()
+        .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));        
+        String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "findAll")
                 .replace("#type#", this.getControllerRestProperty().getReturnType().replace("?", this.getLanguageProperties().getListSyntax().replace("?",ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table)))))
                 .replace("#arg#", "")
@@ -90,13 +124,17 @@ public class ControllerRest{
         .replace("className", '"'+"/"+ObjectUtility.formatToCamelCase(table)+"s"+'"')) + "\n" + function);
     }
 
-    public String findById(String table) throws Exception{
+    public String findById(HashMap<String, String> columns,List<String> primaryKeys,String table) throws Exception{
         String body = "";   
         String args = "";
-        args += this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " int id";
+        String primaryKeyArgs = getArgPrimaryKey(columns, primaryKeys);
+        String primmaryKeyName = primaryKeyArgs.split(" ")[1];
+
+        args += this.getLanguageProperties().getAnnotationSyntax().replace("?",this.getControllerRestProperty().getAnnotationArgumentParameterLink()) + " "+primaryKeyArgs;
         body += Misc.tabulate(
             this.getCrudMethodRestController().getFindById()
                 .replace("className", ObjectUtility.formatToCamelCase(table))
+                .replace("#primaryKeyArg#",ObjectUtility.formatToCamelCase(primmaryKeyName))
                 .replace("#type#", ObjectUtility.capitalize(ObjectUtility.formatToCamelCase(table))));
         String function =  this.getLanguageProperties().getMethodSyntax()
                 .replace("#name#", "findById")
@@ -108,11 +146,13 @@ public class ControllerRest{
     }
     public String getCrudMethodRestControllers(String table) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
+        HashMap<String, String> columns = DbService.getColumnNameAndType(dbConnection.getConnection(), table);
+        List<String> primaryKeyColumn = DbService.getPrimaryKey(dbConnection, table);
         String save = save(table);
         String findAll = findAll(table);
-        String update = update(table);
-        String delete = delete(table);
-        String findById = findById(table);
+        String update = update(columns,primaryKeyColumn,table);
+        String delete = delete(columns,primaryKeyColumn,table);
+        String findById = findById(columns,primaryKeyColumn,table);
         stringBuilder.append(save);
         stringBuilder.append("\n");
         stringBuilder.append(update);

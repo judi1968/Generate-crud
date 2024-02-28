@@ -199,7 +199,10 @@ public class CodeGenerator {
         LanguageProperties languageProperties = getLanguageDetails().getLanguages().get(language);
         FrameworkProperties frameworkProperties = languageProperties.getFrameworks().get(framework);
         String template = frameworkProperties.getTemplate();
+        TypeMapping typeMapping = getTypeProperties().getListProperties().get(language);
         ControllerRest controller = new ControllerRest();
+        controller.setTypeMapping(typeMapping);
+        controller.setDbConnection(this.dbConnection);
         controller.setAnnotationPropertyControllerRest(frameworkProperties.getAnnotationPropertyControllerRest());
         controller.setControllerRestProperty(frameworkProperties.getControllerRestProperty());
         controller.setCrudMethodRestController(frameworkProperties.getCrudMethodRestController());
