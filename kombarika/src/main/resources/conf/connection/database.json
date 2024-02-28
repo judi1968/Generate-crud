@@ -2,9 +2,9 @@
     "defaultConnection" : "DefaultConnection",
     "listConnection": {
         "DefaultConnection": {
-            "datasource":"jdbc:postgresql://localhost:5432/mobile",
+            "datasource":"jdbc:postgresql://localhost:5432/district",
             "username":"postgres",
-            "password":"Mano-123",
+            "password":"mdpprom15",
             "databaseType":"POSTGRESQL"
         },
         "OtherConnection": {
