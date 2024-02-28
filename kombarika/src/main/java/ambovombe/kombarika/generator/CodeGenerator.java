@@ -24,6 +24,7 @@ import ambovombe.kombarika.generator.service.springUtils.ApplicationProprieties;
 import ambovombe.kombarika.generator.service.springUtils.MainSpring;
 import ambovombe.kombarika.generator.service.view.View;
 import ambovombe.kombarika.generator.service.view.ViewVueJs;
+import ambovombe.kombarika.generator.utils.ObjectUtility;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -163,7 +164,7 @@ public class CodeGenerator {
         String path = "./";
         FileUtility.createDirectory(directory,path);
         path = path + File.separator + directory;
-        String fileName = GeneratorService.getFileName("application", "properties");
+        String fileName = "application.properties";
         FileUtility.generateFile(path, fileName, applciationProprietiesContenu);
     }
 
