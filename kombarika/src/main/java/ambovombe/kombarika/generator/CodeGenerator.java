@@ -4,6 +4,7 @@
  */
 package ambovombe.kombarika.generator;
 
+import ambovombe.kombarika.configuration.main.ApplicationProprietiesDetails;
 import ambovombe.kombarika.configuration.main.LanguageDetails;
 import ambovombe.kombarika.configuration.main.MainSpringDetails;
 import ambovombe.kombarika.configuration.main.TypeProperties;
@@ -18,6 +19,7 @@ import ambovombe.kombarika.generator.service.controller.Controller;
 import ambovombe.kombarika.generator.service.controller.ControllerRest;
 import ambovombe.kombarika.generator.service.entity.Entity;
 import ambovombe.kombarika.generator.service.repository.Repository;
+import ambovombe.kombarika.generator.service.springUtils.ApplicationProprieties;
 import ambovombe.kombarika.generator.service.springUtils.MainSpring;
 import ambovombe.kombarika.generator.service.view.View;
 import ambovombe.kombarika.generator.service.view.ViewVueJs;
@@ -39,6 +41,7 @@ public class CodeGenerator {
     ViewDetails viewDetails;
     ViewVueJsDetails viewVueJsDetails;
     MainSpringDetails mainSpringDetails;
+    ApplicationProprietiesDetails applicationProprietiesDetails;
 
 
     public CodeGenerator() throws Exception {
@@ -54,6 +57,8 @@ public class CodeGenerator {
         this.viewVueJsDetails.init();
         this.mainSpringDetails = new MainSpringDetails();
         this.mainSpringDetails.init();
+        this.applicationProprietiesDetails = new ApplicationProprietiesDetails();
+        this.applicationProprietiesDetails.init();
     }
 
     public  void generateEntity(
@@ -148,6 +153,17 @@ public class CodeGenerator {
         path = path + File.separator + directory;
         String fileName = GeneratorService.getFileName("TestApplication", "java");
         FileUtility.generateFile(path, fileName, mainSpring);
+    }
+    public void generateApplicationProprieties(
+        int portSpring,
+        String directory
+    ) throws Exception{
+        String applciationProprietiesContenu = buildApplicationProprieties(portSpring);
+        String path = "./";
+        FileUtility.createDirectory(directory,path);
+        path = path + File.separator + directory;
+        String fileName = GeneratorService.getFileName("application", "proprieties");
+        FileUtility.generateFile(path, fileName, applciationProprietiesContenu);
     }
 
     /**
@@ -290,6 +306,12 @@ public class CodeGenerator {
         mainSpring.setMainSpringDetails(this.getMainSpringDetails());
         return mainSpring.generateMainSpring(packageName);
     }
+
+    public String buildApplicationProprieties(int portSpring) throws Exception{
+        ApplicationProprieties applicationProprieties = new ApplicationProprieties();
+        applicationProprieties.setApplicationProprietiesDetails(this.getApplicationProprietiesDetails());
+        return applicationProprieties.generateApplicationProprieties(portSpring);
+    }
     // public static String getTemplate() throws Exception{
     //     String path = Misc.getSourceTemplateLocation() + File.separator + "Template.code";
     //     return FileUtility.readOneFile(path);
@@ -303,12 +325,17 @@ public class CodeGenerator {
         String controller, 
         String repository,
         String view,
-        String url,
+        int portSpring,
+        String host,
+        String protocolUrl,
         String[] tables, 
         String framework,
         String springUtil
     ) throws Exception{
-        generateMainSpring(packageName,pathBack); 
+        generateMainSpring(packageName,pathBack);
+        generateApplicationProprieties(portSpring,springUtil);  
+        String url = protocolUrl+"://"+host+":"+portSpring;
+        System.out.println(url);
         for (String table : tables) {
             generateEntity(pathBack, table, packageName + "." + entity, framework);
             generateRepository(pathBack, table, packageName + "." + repository, packageName + "." + entity, framework);

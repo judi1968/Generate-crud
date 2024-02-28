@@ -1,0 +1,9 @@
+{
+    "serverPort":"server.port=#serverPort#",
+    "dbUrl":"spring.datasource.url=jdbc:postgresql://localhost:#port#/#database#",
+    "dbUserName":"spring.datasource.username=#username#",
+    "dbPassword":"spring.datasource.password=#password#",
+    "dbDriver":"spring.datasource.driver-class-name=org.postgresql.Driver",
+    "jpa":"spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect",
+    "template":"applicationProprieties.code"
+}

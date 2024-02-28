@@ -31,11 +31,14 @@ public class Test {
         String pathBack = "./result_BackEnd";
         String pathFront = "./result_FrontEnd";
         String framework = "java:spring-boot";
-        String packageName = "com.project.generate";
+        String packageName = "com.judiproject.generate";
         String entity = "entity";
         String controller = "controller";
         String repository = "repository";
         String view = "view";
+        int portSpring = 8080;
+        String host = "localhost";
+        String protocolUrl = "http";
         String url = "http://localhost:8080";
         String springUtil = "springUtil";
         try{
@@ -51,7 +54,7 @@ public class Test {
             String[] tables = DbService.getAllTablesArrays(codeGenerator.getDbConnection());
             // for(String table: tables)
             //     System.out.println(table);
-            codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, url, tables, framework,springUtil);
+            codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, portSpring,host,protocolUrl, tables, framework,springUtil);
             VueJs.generateAllViews(tables, url, codeGenerator.getDbConnection());
             SideBar.generateSideBar(tables);
             Router.generateRouter(tables);
