@@ -58,6 +58,12 @@ public class DbConnection {
         return prop.connect();
     }
 
+    public DbProperties getDbProprieties()throws Exception{
+        if(!isInit()) init();
+        DbProperties prop = this.getListConnection().get(getInUseConnection());
+        return prop;
+    }
+
     /**
      * connect to the database by changing
      * the connection property

@@ -14,6 +14,7 @@ import java.io.File;
 public abstract class Configuration {
     @Getter @Setter
     String jsonPath;
+    String jsonConfigurationBase;
 
     /**
      * Mamaky anle fichier de configuration
@@ -23,6 +24,13 @@ public abstract class Configuration {
     public <T> T read() throws Exception{
         String separator = File.separator;
         String path = Misc.getGeneratorConfLocation() + separator + jsonPath;
+        Object temp = JsonUtility.parseJson(path, this.getClass());
+        return (T)temp;
+    }
+
+    public <T> T readDatabaseConofiguration() throws Exception{
+        String separator = File.separator;
+        String path = Misc.getConnectionConfLocation() + separator + jsonPath;
         Object temp = JsonUtility.parseJson(path, this.getClass());
         return (T)temp;
     }

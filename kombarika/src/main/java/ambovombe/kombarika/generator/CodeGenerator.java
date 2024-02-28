@@ -12,6 +12,7 @@ import ambovombe.kombarika.configuration.main.ViewDetails;
 import ambovombe.kombarika.configuration.main.ViewVueJsDetails;
 import ambovombe.kombarika.configuration.mapping.*;
 import ambovombe.kombarika.database.DbConnection;
+import ambovombe.kombarika.database.DbProperties;
 import ambovombe.kombarika.generator.parser.FileUtility;
 import ambovombe.kombarika.generator.service.DbService;
 import ambovombe.kombarika.generator.service.GeneratorService;
@@ -162,7 +163,7 @@ public class CodeGenerator {
         String path = "./";
         FileUtility.createDirectory(directory,path);
         path = path + File.separator + directory;
-        String fileName = GeneratorService.getFileName("application", "proprieties");
+        String fileName = GeneratorService.getFileName("application", "properties");
         FileUtility.generateFile(path, fileName, applciationProprietiesContenu);
     }
 
@@ -308,7 +309,10 @@ public class CodeGenerator {
     }
 
     public String buildApplicationProprieties(int portSpring) throws Exception{
+        DbProperties dbProperties = this.getDbConnection().getDbProprieties();
         ApplicationProprieties applicationProprieties = new ApplicationProprieties();
+        applicationProprieties.setDbProperties(dbProperties);
+
         applicationProprieties.setApplicationProprietiesDetails(this.getApplicationProprietiesDetails());
         return applicationProprieties.generateApplicationProprieties(portSpring);
     }

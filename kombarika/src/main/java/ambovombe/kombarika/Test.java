@@ -36,7 +36,7 @@ public class Test {
         String controller = "controller";
         String repository = "repository";
         String view = "view";
-        int portSpring = 8080;
+        int portSpring = 4090;
         String host = "localhost";
         String protocolUrl = "http";
         String url = "http://localhost:8080";
