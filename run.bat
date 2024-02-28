@@ -40,6 +40,7 @@ set "dossierJavaGenerateUtil=%dossierExcecution%\springUtil"
 
 set "dossierSpringBoot=%dossierExcecution%\spring_boot_result"
 set "dossierJavaSpringBoot=%dossierSpringBoot%\src\main\java"
+set "dossierRessourcesSpringBoot=%dossierSpringBoot%\src\main\resources"
 
 echo %dossierJavaGenerateBack%
 echo %dossierJavaSpringBoot%
@@ -47,6 +48,8 @@ echo %dossierJavaSpringBoot%
 
 @REM copie de back-end dans de dossier qu'il  fallait
 xcopy /s /e /y /i "%dossierJavaGenerateBack%" "%dossierJavaSpringBoot%"
+xcopy /s /e /y /i "%dossierJavaGenerateUtil%" "%dossierRessourcesSpringBoot%"
+
 @REM xcopy "%dossierJavaGenerateUtil%"
 @echo off
 cd /d %dossierSpringBoot%
