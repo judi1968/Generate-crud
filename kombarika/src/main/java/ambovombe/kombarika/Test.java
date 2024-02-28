@@ -40,6 +40,7 @@ public class Test {
         String host = "localhost";
         String protocolUrl = "http";
         String url = "http://localhost:8080";
+        String urlSpring = protocolUrl+"://"+host+":"+portSpring;
         String springUtil = "springUtil";
         try{
             // String[] tables = {"district","region"};
@@ -55,7 +56,7 @@ public class Test {
             // for(String table: tables)
             //     System.out.println(table);
             codeGenerator.generateAll(pathBack,pathFront, packageName, entity, controller, repository, view, portSpring,host,protocolUrl, tables, framework,springUtil);
-            VueJs.generateAllViews(tables, url, codeGenerator.getDbConnection());
+            VueJs.generateAllViews(tables, urlSpring, codeGenerator.getDbConnection());
             SideBar.generateSideBar(tables);
             Router.generateRouter(tables);
             // codeGenerator.generateEntity(path, "car", packageName+".entity", framework);
