@@ -5,7 +5,7 @@ dossierDestination="/home/mano/Documents/"
 dossierExcecution="/home/mano/Documents/GenerateCrud/kombarika"
 
 echo "========================"
-echo "\\ BIENVENUE GENERER CODE \\"
+echo "\\ MANO ANDRIASAT \\"
 echo "  ========================"
 
 
