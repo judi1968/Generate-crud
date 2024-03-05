@@ -40,12 +40,14 @@ dossierJavaGenerateUtil="$dossierExcecution/springUtil"
 
 dossierSpringBoot="$dossierExcecution/spring_boot_result"
 dossierJavaSpringBoot="$dossierSpringBoot/src/main/java"
+dossierRessourcesSpringBoot="$dossierSpringBoot/src/main/resources"
 
 echo "$dossierJavaGenerateBack"
 echo "$dossierJavaSpringBoot"
 
 mkdir -p "$dossierJavaSpringBoot"
 cp -r "$dossierJavaGenerateBack"/* "$dossierJavaSpringBoot"
+cp -r "$dossierJavaGenerateUtil"/* "$dossierRessourcesSpringBoot"
 
 cd "$dossierSpringBoot"
 mvn spring-boot:run
