@@ -5,7 +5,7 @@ import java.io.File;
 public class Misc {
     public static String currentLocation(String name) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        return classLoader.getResource(name).getPath();
+        return classLoader.getResource(name).getPath().replace("%20", " ");
     }
 
     public static String tabulate(String string){
